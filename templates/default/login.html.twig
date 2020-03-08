@@ -1,0 +1,140 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Welcome!{% endblock %}
+{%block stylesheets%}
+<link rel="stylesheet" type="text/css" href="{{asset('styles/courses.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('styles/courses_responsive.css')}}">
+<style>
+.section-padding {
+    padding: 80px 0;
+}
+.create-account-form {
+    border: 1px solid #cfcfcf;
+    min-height: 380px;
+    padding: 36px 17px;
+}
+
+.heading-title {
+    font-size: 18px;
+    line-height: 1;
+    margin-bottom: 40px;
+    padding-bottom: 13px;
+    position: relative;
+    text-transform: uppercase;
+}
+p.form-row {
+    margin-bottom: 30px;
+}
+p {
+    margin: 0 0 15px;
+}
+.create-account-form .form-row > input {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    border: 1px solid #bbbbbb;
+}
+.form-row > input {
+    background: #f6f6f6 none repeat scroll 0 0;
+    border: medium none;
+    border-radius: 20px;
+    height: 40px;
+    line-height: 40px;
+    padding-left: 20px;
+    width: 100%;
+}
+.btn-default {
+    background: #32b5f3 none repeat scroll 0 0;
+    border: 1px solid #32b5f3;
+    border-radius: 20px;
+    color: #ffffff;
+    height: 40px;
+    padding: 0 22px;
+    transition: all 0.3s ease 0s;
+    font-size: 16px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+.heading-title {
+    font-size: 18px;
+    line-height: 1;
+    margin-bottom: 40px;
+    padding-bottom: 13px;
+    position: relative;
+    text-transform: uppercase;
+}
+</style>
+{%endblock%}
+{%block breadcrumbs%}
+<!-- Home -->
+
+<div class="home">
+	<div class="breadcrumbs_container">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<div class="breadcrumbs">
+						<ul>
+							<li><a href="index.html">Home</a></li>
+							<li>Cart</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>			
+
+</div>
+
+{%endblock%}
+{% block body %}
+
+    <!-- Loging Area Start -->
+    <div class="login-account section-padding">
+        <div class="container">
+             <div class="row">
+                 <div class="col-md-6 col-sm-6">
+                     <form action="#" class="create-account-form" method="post">
+                         <h2 class="heading-title">
+                             CREATE AN ACCOUNT
+                         </h2>
+                         <p class="form-row">
+                             <input type="email" placeholder="Email address">
+                         </p>
+                         <div class="submit">					
+                             <button name="submitcreate" id="submitcreate" type="submit" class="btn-default">
+                                 <span>
+                                     <i class="fa fa-user left"></i>
+                                     Create an account
+                                 </span>
+                             </button>
+                         </div>
+                     </form>
+                 </div>
+                 <div class="col-md-6 col-sm-6">
+                    <form action="#" class="create-account-form" method="post">
+                         <h2 class="heading-title">
+                             ALREADY RESIGTERED?
+                         </h2>
+                         <p class="form-row">
+                             <input type="email" placeholder="Email address">
+                         </p>
+                         <p class="form-row">
+                             <input type="password" placeholder="Password">
+                         </p>
+                         <p class="lost-password form-group">
+                             <a href="#" rel="nofollow">Forgot your password?</a>
+                         </p> 
+                         <div class="submit">					
+                             <button name="submitcreate" id="submitcreate" type="submit" class="btn-default">
+                                 <span>
+                                     <i class="fa fa-user left"></i>
+                                     SING IN
+                                 </span>
+                             </button>
+                         </div>                          
+                    </form>
+                 </div>
+             </div>               
+        </div>
+     </div>
+     <!-- Loging Area End -->
+{% endblock %}

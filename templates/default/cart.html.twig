@@ -1,0 +1,322 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Welcome!{% endblock %}
+
+
+{%block stylesheets%}
+
+<link rel="stylesheet" type="text/css" href="{{asset('styles/courses.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('styles/courses_responsive.css')}}">
+<style>
+.subtotal-main-area > a {
+    float: right;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+.discount-middle > a, .subtotal-main-area > a {
+    background: #32b5f3 none repeat scroll 0 0;
+    border-radius: 20px;
+    color: #ffffff;
+    float: right;
+    padding: 10px 20px;
+}
+.subtotal-main-area > p {
+    font-size: 16px;
+    margin: 0;
+    padding-bottom: 43px;
+    padding-top: 100px;
+    text-align: center;
+    text-transform: none;
+}
+.subtotal-area h2 {
+    border-bottom: 1px solid #dddddd;
+    font-size: 16px;
+    margin: 0;
+    padding: 35px;
+}
+.header-right > ul, .subtotal-area span, .sidebar-menu span, .blog-date {
+    float: right;
+}
+.discount-area {
+    color: #666666;
+    padding-bottom: 80px;
+}
+.shop-widget, .shopping-cart-area, .shop-widget a {
+    color: #666666;
+}
+.section-padding {
+    padding: 80px 0 !important;
+}
+.container {
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.row {
+    margin-left: -15px;
+    margin-right: -15px;
+}
+
+
+div {
+    display: block;
+}
+.shop-widget, .shopping-cart-area, .shop-widget a {
+    color: #666666;
+}
+
+.table-responsive {
+    overflow-x: auto;
+    min-height: 0.01%;
+}
+.shopping-cart-area table {
+    border-color: #c7c7c7;
+    border-radius: 0;
+    border-style: solid;
+    border-width: 1px 0 0 1px;
+    margin: 0 0 10px;
+    text-align: center;
+    width: 100%;
+}
+thead {
+    display: table-header-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+table {
+    background-color: transparent;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+.shop-widget, .shopping-cart-area, .shop-widget a {
+    color: #666666;
+}
+.shopingcart-bottom-area a {
+    background: #32b5f3 none repeat scroll 0 0;
+    border-radius: 20px;
+    color: #ffffff;
+    display: inline-block;
+    font-weight: 500;
+    padding: 10px 25px;
+    text-transform: uppercase;
+}
+.pull-right {
+    float: right !important;
+}
+.discount-area {
+    color: #666666;
+    padding-bottom: 80px;
+}
+.discount-main-area {
+    border: 1px solid #dddddd;
+    text-align: center;
+}
+.discount-top {
+    border-bottom: 1px solid #dddddd;
+    padding: 35px 0;
+}
+.discount-middle {
+    padding: 82px 70px;
+}
+.subtotal-main-area {
+    border: 1px solid #dddddd;
+}
+.wishlist-right-area table th, .shopping-cart-area table th {
+    border-top: medium none;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 20px 10px;
+    text-align: center;
+    text-transform: capitalize;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+.wishlist-right-area table th, .wishlist-right-area table td, .shopping-cart-area table th, .shopping-cart-area table td {
+    border-bottom: 1px solid #c7c7c7;
+    border-right: 1px solid #c7c7c7;
+}
+.product-remove {
+    width: 130px;
+}
+.shopping-cart-area .product-image {
+    width: 265px;
+}
+.t-product-name {
+    width: 170px;
+}
+.product-edit {
+    width: 112px;
+}
+.product-unit-price, .product-quantity, .product-subtotal {
+    width: 165px;
+}
+.product-cart-details {
+    margin-bottom: 160px;
+}
+.product-unit-price, .product-quantity, .product-subtotal {
+    width: 165px;
+}
+input[type="number"] {
+    width: 45px;
+}
+table td{
+    padding:15px;
+}
+</style>
+{%endblock%}
+
+{%block breadcrumbs%}
+<!-- Home -->
+
+<div class="home">
+	<div class="breadcrumbs_container">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<div class="breadcrumbs">
+						<ul>
+							<li><a href="index.html">Home</a></li>
+							<li>Cart</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>			
+
+</div>
+
+{%endblock%}
+{% block body %}
+	<!-- Cart Area Start -->
+    <div class="shopping-cart-area section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="wishlist-table-area table-responsive">
+                        <table border="1">
+                            <thead>
+                                <tr>
+                                    <th class="product-remove">Remove</th>
+                                    <th class="product-image">Image</th>
+                                    <th class="t-product-name">Product Name</th>
+                                    <th class="product-edit">Edit</th>
+                                    <th class="product-unit-price">Unit Price</th>
+                                    <th class="product-quantity">Quantity</th>
+                                    <th class="product-subtotal">Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="product-remove">
+                                        <a href="#">
+                                            <i class="flaticon-delete"></i>
+                                        </a>
+                                    </td>
+                                    <td class="product-image">
+                                        <a href="#">
+                                            <img src="img/shop/1.jpg" alt="">
+                                        </a>
+                                    </td>
+                                    <td class="t-product-name">
+                                        <h3>
+                                            <a href="#">Cold mountain</a>
+                                        </h3>
+                                    </td>
+                                    <td class="product-edit">
+                                        <p>
+                                            <a href="#">Edit</a>
+                                        </p>
+                                    </td>
+                                    <td class="product-unit-price">
+                                        <p>$ 100</p>
+                                    </td>
+                                    <td class="product-quantity product-cart-details">
+                                        <input type="number" value="1">
+                                    </td>
+                                    <td class="product-quantity">
+                                        <p>$ 100</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="product-remove">
+                                        <a href="#">
+                                            <i class="flaticon-delete"></i>
+                                        </a>
+                                    </td>
+                                    <td class="product-image">
+                                        <a href="#">
+                                            <img src="img/shop/2.jpg" alt="">
+                                        </a>
+                                    </td>
+                                    <td class="t-product-name">
+                                        <h3>
+                                            <a href="#">East of eden</a>
+                                        </h3>
+                                    </td>
+                                    <td class="product-edit">
+                                        <p>
+                                           <a href="#">Edit</a>
+                                        </p>
+                                    </td>
+                                    <td class="product-unit-price">
+                                        <p>$ 100</p>
+                                    </td>
+                                    <td class="product-quantity product-cart-details">
+                                        <input type="number" value="1">
+                                    </td>
+                                    <td class="product-quantity">
+                                        <p>$ 100</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>	
+                    <div class="shopingcart-bottom-area">
+                        <a class="left-shoping-cart" href="#">CONTINUE SHOPPING</a>
+                        <div class="shopingcart-bottom-area pull-right">
+                            <a class="right-shoping-cart" href="#">CLEAR SHOPPING CART</a>
+                            <a class="right-shoping-cart" href="#">UPDATE SHOPPING CART</a>
+                        </div>
+                    </div>	                
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Cart Area End -->
+    <!-- Discount Area Start -->
+    <div class="discount-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-sm-6">
+                    <div class="discount-main-area">
+                        <div class="discount-top">
+                            <h3>DISCOUNT CODE</h3>
+                            <p>Enter your coupon code if have one</p>
+                        </div>
+                        <div class="discount-middle">
+                            <input type="text" placeholder="">
+                            <a class="" href="#">APPLY COUPON</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <div class="subtotal-main-area">
+                        <div class="subtotal-area">
+                            <h2>SUBTOTAL<span>$ 200</span></h2>
+                        </div>
+                        <div class="subtotal-area">
+                            <h2>GRAND TOTAL<span>$ 200</span></h2>
+                        </div>
+                        <a href="#">CHECKOUT</a>
+                        <p>Checkout With Multiple Addresses</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Discount Area End -->
+{% endblock %}
