@@ -1,0 +1,22 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}New Category{% endblock %}
+{%block stylesheets%}
+    <style>
+     
+     .submit{
+            margin-left: 90%;
+        }
+    </style>
+{%endblock%}
+{% block body %}
+<div class="header">
+    <h2>CREATE NEW CATEGORY</h2>
+</div>
+    <div class="body">  
+          {{ include('category/_form.html.twig') }}
+    </div>
+
+
+
+{% endblock %}

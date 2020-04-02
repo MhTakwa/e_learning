@@ -4,7 +4,17 @@
 {%block stylesheets%}
 <link rel="stylesheet" type="text/css" href="{{asset('styles/courses.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('styles/courses_responsive.css')}}">
+<style>
+	.course_image img {
+    height: 200px;
+    width: 100%;
+    max-width: 100%;
+}
+</style>
+
 {%endblock%}
+
+
 {%block breadcrumbs%}
 <!-- Home -->
 
@@ -39,181 +49,48 @@
 				<!-- Courses Main Content -->
 				<div class="col-lg-8">
 					<div class="courses_search_container">
-						<form action="#" id="courses_search_form" class="courses_search_form d-flex flex-row align-items-center justify-content-start">
-							<input type="search" class="courses_search_input" placeholder="Search Courses" required="required">
-							<select id="courses_search_select" class="courses_search_select courses_search_input">
+						<form action="{{path('course_search')}}" id="courses_search_form" class="courses_search_form d-flex flex-row align-items-center justify-content-start" method="POST">
+							<input type="search" class="courses_search_input" placeholder="Search Courses" name="label">
+							<select id="courses_search_select" name="id_category" class="courses_search_select courses_search_input">
 								<option>All Categories</option>
-								<option>Category</option>
-								<option>Category</option>
-								<option>Category</option>
+								{%for category in categories%}
+								<option value="{{category.id}}">{{category.label}}</option>
+								{%endfor%}
 							</select>
 							<button action="submit" class="courses_search_button ml-auto">search now</button>
 						</form>
 					</div>
 					<div class="courses_container">
 						<div class="row courses_row">
-							
+							{%for course in courses%}
 							<!-- Course -->
 							<div class="col-lg-6 course_col">
 								<div class="course">
-									<div class="course_image"><img src="images/course_4.jpg" alt=""></div>
+									<div class="course_image"><img src="{{course.image}}" alt=""></div>
 									<div class="course_body">
-										<h3 class="course_title"><a href="course.html">Software Training</a></h3>
+										<h3 class="course_title"><a href="{{path('course_details',{'id':course.id})}}">{{course.label}}</a></h3>
 										<div class="course_teacher">Mr. John Taylor</div>
 										<div class="course_text">
-											<p>Lorem ipsum dolor sit amet, consectetur adipi elitsed do eiusmod tempor</p>
+											<p>{{course.shortDesc}}</p>
 										</div>
 									</div>
 									<div class="course_footer">
 										<div class="course_footer_content d-flex flex-row align-items-center justify-content-start">
 											<div class="course_info">
 												<i class="fa fa-graduation-cap" aria-hidden="true"></i>
-												<span>20 Student</span>
+												<span>{{course.availablePlaces}} Student</span>
 											</div>
 											<div class="course_info">
 												<i class="fa fa-star" aria-hidden="true"></i>
 												<span>5 Ratings</span>
 											</div>
-											<div class="course_price ml-auto">$130</div>
+											<div class="course_price ml-auto">${{course.price}}</div>
 										</div>
 									</div>
 								</div>
 							</div>
+                            {%endfor%}
 
-							<!-- Course -->
-							<div class="col-lg-6 course_col">
-								<div class="course">
-									<div class="course_image"><img src="images/course_5.jpg" alt=""></div>
-									<div class="course_body">
-										<h3 class="course_title"><a href="course.html">Developing Mobile Apps</a></h3>
-										<div class="course_teacher">Ms. Lucius</div>
-										<div class="course_text">
-											<p>Lorem ipsum dolor sit amet, consectetur adipi elitsed do eiusmod tempor</p>
-										</div>
-									</div>
-									<div class="course_footer">
-										<div class="course_footer_content d-flex flex-row align-items-center justify-content-start">
-											<div class="course_info">
-												<i class="fa fa-graduation-cap" aria-hidden="true"></i>
-												<span>20 Student</span>
-											</div>
-											<div class="course_info">
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<span>5 Ratings</span>
-											</div>
-											<div class="course_price ml-auto">Free</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<!-- Course -->
-							<div class="col-lg-6 course_col">
-								<div class="course">
-									<div class="course_image"><img src="images/course_6.jpg" alt=""></div>
-									<div class="course_body">
-										<h3 class="course_title"><a href="course.html">Starting a Startup</a></h3>
-										<div class="course_teacher">Mr. Charles</div>
-										<div class="course_text">
-											<p>Lorem ipsum dolor sit amet, consectetur adipi elitsed do eiusmod tempor</p>
-										</div>
-									</div>
-									<div class="course_footer">
-										<div class="course_footer_content d-flex flex-row align-items-center justify-content-start">
-											<div class="course_info">
-												<i class="fa fa-graduation-cap" aria-hidden="true"></i>
-												<span>20 Student</span>
-											</div>
-											<div class="course_info">
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<span>5 Ratings</span>
-											</div>
-											<div class="course_price ml-auto"><span>$320</span>$220</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<!-- Course -->
-							<div class="col-lg-6 course_col">
-								<div class="course">
-									<div class="course_image"><img src="images/course_7.jpg" alt=""></div>
-									<div class="course_body">
-										<h3 class="course_title"><a href="course.html">Learn Basic German Fast</a></h3>
-										<div class="course_teacher">Mr. John Taylor</div>
-										<div class="course_text">
-											<p>Lorem ipsum dolor sit amet, consectetur adipi elitsed do eiusmod tempor</p>
-										</div>
-									</div>
-									<div class="course_footer">
-										<div class="course_footer_content d-flex flex-row align-items-center justify-content-start">
-											<div class="course_info">
-												<i class="fa fa-graduation-cap" aria-hidden="true"></i>
-												<span>20 Student</span>
-											</div>
-											<div class="course_info">
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<span>5 Ratings</span>
-											</div>
-											<div class="course_price ml-auto">$130</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<!-- Course -->
-							<div class="col-lg-6 course_col">
-								<div class="course">
-									<div class="course_image"><img src="images/course_8.jpg" alt=""></div>
-									<div class="course_body">
-										<h3 class="course_title"><a href="course.html">Business Groud Up</a></h3>
-										<div class="course_teacher">Ms. Lucius</div>
-										<div class="course_text">
-											<p>Lorem ipsum dolor sit amet, consectetur adipi elitsed do eiusmod tempor</p>
-										</div>
-									</div>
-									<div class="course_footer">
-										<div class="course_footer_content d-flex flex-row align-items-center justify-content-start">
-											<div class="course_info">
-												<i class="fa fa-graduation-cap" aria-hidden="true"></i>
-												<span>20 Student</span>
-											</div>
-											<div class="course_info">
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<span>5 Ratings</span>
-											</div>
-											<div class="course_price ml-auto">Free</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<!-- Course -->
-							<div class="col-lg-6 course_col">
-								<div class="course">
-									<div class="course_image"><img src="images/course_9.jpg" alt=""></div>
-									<div class="course_body">
-										<h3 class="course_title"><a href="course.html">Java Technology</a></h3>
-										<div class="course_teacher">Mr. Charles</div>
-										<div class="course_text">
-											<p>Lorem ipsum dolor sit amet, consectetur adipi elitsed do eiusmod tempor</p>
-										</div>
-									</div>
-									<div class="course_footer">
-										<div class="course_footer_content d-flex flex-row align-items-center justify-content-start">
-											<div class="course_info">
-												<i class="fa fa-graduation-cap" aria-hidden="true"></i>
-												<span>20 Student</span>
-											</div>
-											<div class="course_info">
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<span>5 Ratings</span>
-											</div>
-											<div class="course_price ml-auto"><span>$320</span>$220</div>
-										</div>
-									</div>
-								</div>
-							</div>
 
 						</div>
 						<div class="row pagination_row">
@@ -252,11 +129,9 @@
 							<div class="sidebar_section_title">Categories</div>
 							<div class="sidebar_categories">
 								<ul>
-									<li><a href="#">Art & Design</a></li>
-									<li><a href="#">Business</a></li>
-									<li><a href="#">IT & Software</a></li>
-									<li><a href="#">Languages</a></li>
-									<li><a href="#">Programming</a></li>
+									{%for category in categories%}
+									<li><a href="{{path('course_search',{'id':category.id})}}">{{category.label}}</a></li>
+									{%endfor%}
 								</ul>
 							</div>
 						</div>

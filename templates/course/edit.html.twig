@@ -1,0 +1,39 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}Edit Course{% endblock %}
+{%block stylesheets%}
+    <style>
+       
+        .submit{
+            margin-left: 90%;
+        }
+           button.btn.dropdown-toggle.btn-default {
+    visibility: hidden;
+    
+    margin-top: -60%;
+}
+    </style>
+{%endblock%}
+{% block body %}
+<div class="header">
+    <h2>EDIT COURSE</h2>
+</div>
+   
+
+    {{ include('course/_form.html.twig', {'button_label': 'Update'}) }}
+
+   
+{% endblock %}
+{%block scripts%}
+ <script>
+     $('label[for=course__token]').remove();
+     $('input[name=course__token]').hide();
+     $(document).ready(function() {
+        
+        $('.js-datepicker').datepicker({
+            format: 'yyyy-mm-dd'
+        });
+    });
+ </script>
+ 
+{%endblock%}

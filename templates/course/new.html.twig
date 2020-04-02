@@ -1,0 +1,38 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}New Course{% endblock %}
+{%block stylesheets%}
+    <style>
+    button.btn.dropdown-toggle.btn-default {
+    visibility: hidden;
+    
+    margin-top: -60%;
+}
+     .submit{
+            margin-left: 90%;
+        }
+    </style>
+{%endblock%}
+{% block body %}
+<div class="header">
+    <h2>CREATE NEW COURSE</h2>
+</div>
+    
+
+        {{ include('course/_form.html.twig') }}
+
+   
+{% endblock %}
+{%block scripts%}
+ <script>
+     $('label[for=course__token]').remove();
+     $('input[for=course__token]').remove();
+     $(document).ready(function() {
+        
+        $('.js-datepicker').datepicker({
+            format: 'yyyy-mm-dd'
+        });
+    });
+ </script>
+ 
+{%endblock%}

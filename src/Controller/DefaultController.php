@@ -4,16 +4,25 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-
+use App\Entity\Course;
+use App\Entity\Category;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Security;
 class DefaultController extends AbstractController
 {
     /**
      * @Route("/", name="home")
      */
-    public function index()
+    public function index(Request $request)
     {
+       
+        $courses=$this->getDoctrine()->getRepository(Course::class)->findAll();
+        $categories=$this->getDoctrine()->getRepository(Category::class)->findAll();
         return $this->render('default/index.html.twig', [
             'controller_name' => 'DefaultController',
+            'courses'=>$courses,
+            'categories'
         ]);
     }
     /**
@@ -30,8 +39,12 @@ class DefaultController extends AbstractController
      */
     public function courses()
     {
+        $courses=$this->getDoctrine()->getManager()->getRepository(Course::class)->findAll();
+        $categories=$this->getDoctrine()->getManager()->getRepository(Category::class)->findAll();
         return $this->render('default/courses.html.twig', [
             'controller_name' => 'DefaultController',
+            'courses'=>$courses,
+            'categories'=>$categories
         ]);
     }
             /**
@@ -43,15 +56,7 @@ class DefaultController extends AbstractController
             'controller_name' => 'DefaultController',
         ]);
     }
-    /**
-     * @Route("/login", name="login")
-     */
-    public function login()
-    {
-        return $this->render('default/login.html.twig', [
-            'controller_name' => 'DefaultController',
-        ]);
-    }
+    
         /**
      * @Route("/cart", name="cart")
      */
@@ -70,4 +75,5 @@ class DefaultController extends AbstractController
             'controller_name' => 'DefaultController',
         ]);
     }
+
 }

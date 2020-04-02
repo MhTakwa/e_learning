@@ -88,6 +88,7 @@ p {
 {% block body %}
 
     <!-- Loging Area Start -->
+ 
     <div class="login-account section-padding">
         <div class="container">
              <div class="row">
@@ -110,16 +111,23 @@ p {
                      </form>
                  </div>
                  <div class="col-md-6 col-sm-6">
-                    <form action="#" class="create-account-form" method="post">
+                    <form action="{{path('app_login')}}" class="create-account-form" method="post">
                          <h2 class="heading-title">
                              ALREADY RESIGTERED?
                          </h2>
+                         {%if error != null%}
+                            {{error.messagekey | trans(error.messagedata, 'security')}}
+                          {%endif%}
+
                          <p class="form-row">
-                             <input type="email" placeholder="Email address">
+                             <input type="text" value="{{last_username}}" name="username">
                          </p>
                          <p class="form-row">
-                             <input type="password" placeholder="Password">
+                             <input type="password" placeholder="Password" name="password">
                          </p>
+                         <input type="hidden" name="_csrf_token"
+                         value="{{csrf_token('authenticate') }}"
+                     >
                          <p class="lost-password form-group">
                              <a href="#" rel="nofollow">Forgot your password?</a>
                          </p> 

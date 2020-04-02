@@ -1,0 +1,72 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}Course index{% endblock %}
+{%block stylesheets%}
+    <style>
+       
+        .submit{
+            margin-left: 90%;
+            margin-bottom: 10px;
+        }
+    </style>
+{%endblock%}
+{% block body %}
+   <!-- Basic Examples -->
+   <div class="header">
+    <h2>COURSES</h2>
+</div>
+     
+                        <div class="body">
+                            <a href="{{path('course_new')}}" class="submit btn btn-primary m-t-15 waves-effect">ADD COURSE</a>
+                        </br>
+                            
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Label</th>
+                                            <th>Category</th>
+                                            <th>Price</th>
+                                                                              
+                                            <th>Available_places</th>
+                                           
+                                            <th>StartDate</th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                   
+                                    <tbody>
+                                        {% for course in courses %}
+                                            <tr>
+                                                <td>{{ course.id }}</td>
+                                                <td>{{ course.label }}</td>
+                                                <td>{{course.category}}</td>
+                                                <td>{{ course.price }}</td>
+                                                <td>{{ course.availablePlaces }}</td>
+                                                <td>{{ course.startDate ? course.startDate|date('Y-m-d') : '' }}</td>
+                                               
+                                                <td> <a href="{{ path('course_edit', {'id': course.id}) }}">edit</a></td>
+                                                <td>
+                                                    <a href="{{ path('course_delete', {'id': course.id}) }}">delete</a>
+                                                   
+                                                </td>
+                                            </tr>
+                                        {% else %}
+                                            <tr>
+                                                <td colspan="11">no records found</td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                </table>
+                            </div>
+                        </div>
+                  
+ 
+{% endblock %}
+{%block scripts%}
+<script>
+    $('.table').datatable();
+</script>
+{%endblock%}

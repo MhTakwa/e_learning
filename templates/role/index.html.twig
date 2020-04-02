@@ -1,0 +1,52 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}Role index{% endblock %}
+{%block stylesheets%}
+    <style>
+       
+        .submit{
+            margin-left: 90%;
+            margin-bottom: 10px;
+        }
+    </style>
+{%endblock%}
+{% block body %}
+   <!-- Basic Examples -->
+   <div class="header">
+    <h2>ROLES</h2>
+</div>
+   
+<div class="body">
+    <a href="{{ path('role_new') }}" class="submit btn btn-primary m-t-15 waves-effect">ADD ROLE</a>
+</br>
+    
+   <div class="table-responsive">
+    <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Label</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for role in roles %}
+            <tr>
+                <td>{{ role.id }}</td>
+                <td>{{ role.label }}</td>
+                <td>
+                    <a href="{{ path('role_show', {'id': role.id}) }}">show</a>
+                    <a href="{{ path('role_edit', {'id': role.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+    </div>
+
+{% endblock %}

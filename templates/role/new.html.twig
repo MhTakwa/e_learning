@@ -1,0 +1,35 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}New Role{% endblock %}
+{%block stylesheets%}
+    <style>
+    button.btn.dropdown-toggle.btn-default {
+    visibility: hidden;
+    
+    margin-top: -60%;
+}
+     .submit{
+            margin-left: 90%;
+        }
+    </style>
+{%endblock%}
+{% block body %}
+    <h1>Create new Role</h1>
+
+    {{ include('role/_form.html.twig') }}
+
+
+{% endblock %} 
+{%block scripts%}
+ <script>
+     $('label[for=role__token]').remove();
+     $('input[for=role__token]').remove();
+     $(document).ready(function() {
+        
+        $('.js-datepicker').datepicker({
+            format: 'yyyy-mm-dd'
+        });
+    });
+ </script>
+ 
+{%endblock%}

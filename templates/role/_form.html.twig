@@ -1,0 +1,28 @@
+{{ form_start(form) }}
+
+{%for var in form.children%}
+
+ <div class="col-md-12 col-lg-12">
+ <div class="form-group">
+      
+    {%if var!="_token"%}
+     
+    {{ form_label(var) }}
+{%endif%}
+<div class="form-line">
+    {{ form_widget(var,{ 'attr': { 'class': 'form-control' } } ) }}
+    {{ form_errors(var) }}
+</div> 
+
+</div>
+</div>
+{%endfor%}
+<div class="col-md-12">
+    <div class="col-md-6">
+     <a class="back btn btn-danger m-t-15 waves-effect" href="{{ path('role_index') }}">back to list</a>
+     </div>
+     <div class="col-md-6">
+    <button class="submit btn btn-primary m-t-15 waves-effect">{{ button_label|default('Save') }}</button>
+    </div>
+</div>
+{{ form_end(form) }}
