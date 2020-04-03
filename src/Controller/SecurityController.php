@@ -4,8 +4,11 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use App\Entity\User;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class SecurityController extends AbstractController
 {
@@ -36,7 +39,26 @@ class SecurityController extends AbstractController
       /**
      * @Route("/register", name="register")
      */
-    public function register(){
+    public function register( Request $request,UserPasswordEncoderInterface $encoder){
+        if($request->get('username')){
+            $user=new User();
+            $user->setUsername($request->get('username'));
+            $user->setLastname($request->get('lastname'));
+            $user->setEmail($request->get('email'));
+            $user->setPassword($encoder->EncodePassword($user,$request->get('password')));
+            $user->setRoles(['ROLE_USER']);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+            return $this->redirectToRoute('app_login');
+        }
         return $this->render('security/register.html.twig');
+    }
+        /**
+     * @Route("/profile", name="user_profile", methods={"GET"})
+     */
+    public function profile(Request $request): Response
+    { 
+       return $this->render('user/profile.html.twig');
     }
 }

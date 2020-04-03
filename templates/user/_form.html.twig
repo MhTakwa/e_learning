@@ -1,9 +1,9 @@
 {{ form_start(form) }}
-
-{%for var in form.children%}
-
- <div class="col-md-6 col-lg-6">
- <div class="form-group {{var.vars.name}}">
+  
+    {%for var in form.children%}
+  
+ <div class="col-md-12 col-lg-12">
+ <div class='form-group {{var.vars.name}}'>
    
      {%if var!="_token"%}
      
@@ -18,9 +18,10 @@
  </div>
 
 {%endfor%}
+
 <div class="col-md-12">
     <div class="col-md-6">
-     <a class="back btn btn-danger m-t-15 waves-effect" href="{{ path('course_index') }}">back to list</a>
+     <a class="back btn btn-danger m-t-15 waves-effect" href="{{ path('teacher_index') }}">back to list</a>
      </div>
      <div class="col-md-6">
     <button class="submit btn btn-primary m-t-15 waves-effect">{{ button_label|default('Save') }}</button>

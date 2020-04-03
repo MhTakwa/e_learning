@@ -1,6 +1,6 @@
 {% extends 'base_admin.html.twig' %}
 
-{% block title %}New Role{% endblock %}
+{% block title %}New Teacher{% endblock %}
 {%block stylesheets%}
     <style>
     button.btn.dropdown-toggle.btn-default {
@@ -8,22 +8,26 @@
     
     margin-top: -60%;
 }
-     .submit{
+.submit{
             margin-left: 90%;
+            margin-bottom: 50px;
         }
     </style>
 {%endblock%}
 {% block body %}
-    <h1>Create new Role</h1>
+    <h1>Create new Teacher</h1>
 
-    {{ include('role/_form.html.twig') }}
+    {{ include('teacher/_form.html.twig') }}
 
-
-{% endblock %} 
+{% endblock %}
 {%block scripts%}
  <script>
-     $('label[for=role__token]').remove();
-     $('input[for=role__token]').remove();
+     
+     $('#teacher_email').prop('type','email');
+     $('#user_Roles').hide();
+     $('._token').hide();
+     $('label[for=user__token]').remove();
+     $('input[for=user__token]').remove();
      $(document).ready(function() {
         
         $('.js-datepicker').datepicker({

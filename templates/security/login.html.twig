@@ -82,7 +82,7 @@ p {
 					<div class="breadcrumbs">
 						<ul>
 							<li><a href="index.html">Home</a></li>
-							<li>Cart</li>
+							<li>Login</li>
 						</ul>
 					</div>
 				</div>
@@ -114,10 +114,11 @@ p {
                         {% endif %}
                     
                         <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-                        <label for="inputUsername">Username</label>
-                        <div class="form-row">
-                        <input type="text" value="{{ last_username }}" name="username"  id="inputUsername" class="form-control" required autofocus>
-                         </div>
+                       
+                         <label for="inputUsername">Email</label>
+                         <div class="form-row">
+                         <input type="email" value="{{ last_username }}" name="email"  id="email" class="form-control" required autofocus>
+                          </div>
                         <label for="inputPassword">Password</label>
                         <div class="form-row">
                         <input type="password" name="password" id="inputPassword" class="form-control" required>

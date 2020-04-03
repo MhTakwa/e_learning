@@ -82,7 +82,7 @@ p {
 					<div class="breadcrumbs">
 						<ul>
 							<li><a href="index.html">Home</a></li>
-							<li>Cart</li>
+							<li>Register</li>
 						</ul>
 					</div>
 				</div>
@@ -106,10 +106,20 @@ p {
            
                     
                         <h1 class="h3 mb-3 font-weight-normal">Please sign up</h1>
-                        <label for="inputUsername">Username</label>
+                        <label for="inputUsername">First Name</label>
                         <div class="form-row">
-                        <input type="text"  name="username"  id="inputUsername" class="form-control" required autofocus>
+                        <input type="text" value="" name="username"  id="inputUsername" class="form-control" required autofocus>
                          </div>
+                         <label for="inputUsername">Last Name</label>
+                        <div class="form-row">
+                        <input type="text" value="" name="lastname"  id="inputLastname" class="form-control" required autofocus>
+                         </div>
+                        <label for="inputUsername">Email</label>
+                        <div class="form-row email">
+                        <input type="text"  name="email"  id="email" class="form-control" required autofocus>
+                         </div>
+                         <br>
+                         <div class="alert-danger "> <label class="alert-email">Email already exists</label> </div>
                         <label for="inputPassword">Password</label>
                         <div class="form-row">
                         <input type="password" name="password" id="password" class="form-control" required>
@@ -119,7 +129,7 @@ p {
                          <input type="password" id="confirm_password" class="form-control" required>
                           </div>
                           <br>
-                          <div class="alert-danger">password does not match</div>
+                          <div class="alert-danger"> <label class="alert-password">Password does not match</label></div>
                     
                         {#
                             Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
@@ -139,7 +149,12 @@ p {
                                 </span>
                             </button>
                         </div>
+                        <div class="register">
+                            <a href="{{ path('app_login') }}">Already have an account , sing in !</a>
+                        </div>
+
                     </form>
+                      
                  </div>
              </div>               
         </div>
@@ -149,17 +164,40 @@ p {
 
 {% block javascripts%}
  <script>
-      $('.alert-danger').hide();
-     /*$('#submitcreate').prop('disabled',true);
-     $('.btn-default').css('background','grey');
-     $('.btn-default').css('border','grey');*/
+      $('.alert-password').hide();
+      $('.alert-email').hide();
+     $('#email').on('change',function(){
+         var email=$('#email').val(); 
+        $.ajax({
+             url:"{{path('user_check')}}",
+             method:"post",
+             data:{'email':email}
+         }).done(function(res){
+           if(res=="1"){ 
+             $('.email').css('border','red');
+             $('.alert-email').show();
+             $('#username').val("");
+
+           }
+            
+
+             
+         }).fail(function(mes){
+            
+             e.preventDefault();
+         });
+     });
      $('#submitcreate').on('click',function(e){
+         var username=$('#username').val();
          if($('#password').val()!=$('#confirm_password').val()){
             $('.alert-danger').show();
             $('.alert-danger').css('border','red');
             e.preventDefault(); 
          }
+        
 
+        
      });
+
  </script>
 {%endblock%}

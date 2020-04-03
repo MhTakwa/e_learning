@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use App\Entity\Category;
+use App\Entity\Teacher;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 class CourseType extends AbstractType
@@ -29,6 +30,11 @@ class CourseType extends AbstractType
             ->add('startDate', DateType::class)
             ->add('category', EntityType::class, [
                 'class' => Category::class,
+            ])
+            ->add('teacher', EntityType::class, [
+                'class' => Teacher::class,
+                
+            
             ])
         ;
     }

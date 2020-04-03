@@ -1,6 +1,6 @@
 {% extends 'base_admin.html.twig' %}
 
-{% block title %}New Course{% endblock %}
+{% block title %}Edit User{% endblock %}
 {%block stylesheets%}
     <style>
     button.btn.dropdown-toggle.btn-default {
@@ -8,28 +8,24 @@
     
     margin-top: -60%;
 }
-     .submit{
+.submit{
             margin-left: 90%;
-            margin-bottom:50px;
+            margin-bottom: 50px;
         }
     </style>
 {%endblock%}
 {% block body %}
-<div class="header">
-    <h2>CREATE NEW COURSE</h2>
-</div>
-    
+    <h1>Edit Teacher</h1>
 
-        {{ include('course/_form.html.twig') }}
+    {{ include('teacher/_form.html.twig', {'button_label': 'Update'}) }}
 
-   
 {% endblock %}
 {%block scripts%}
  <script>
+     $('#user_Roles').hide();
      $('._token').hide();
-     $('label[for=course__token]').remove();
-     $('input[for=course__token]').remove();
-     
+     $('label[for=user__token]').remove();
+     $('input[for=user__token]').remove();
      $(document).ready(function() {
         
         $('.js-datepicker').datepicker({

@@ -2,9 +2,12 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 /**
+ *  @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
 class User implements UserInterface,\Serializable
@@ -26,7 +29,27 @@ class User implements UserInterface,\Serializable
      */
     private $password;
 
-    public function getId(): ?int
+    /**
+     * @ORM\Column(type="array")
+     */
+    private $Roles = [];
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $lastname;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $email;
+
+     public function __construct(){
+        $Roles=new ArrayCollection();
+      
+    }
+
+       public function getId(): ?int
     {
         return $this->id;
     }
@@ -57,7 +80,7 @@ class User implements UserInterface,\Serializable
     public function getRoles(): array
     {
         //return $this;
-        return array('ROLE_USER');
+        return  $this->Roles;
     }
     public function getSalt()
     {
@@ -83,4 +106,46 @@ class User implements UserInterface,\Serializable
         )=unserialize($serilized,['allowed_classes'=>false]);
 
     }
+
+    public function setRoles(array $Roles): self
+    {
+        $this->Roles = $Roles;
+
+        return $this;
+    }
+
+    public function getLastname(): ?string
+    {
+        return $this->lastname;
+    }
+
+    public function setLastname(string $lastname): self
+    {
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function __toString(){
+        return  $this->lastname."  ".$this->username;
+    }
+
+    
+
+
+
+
+    
 }

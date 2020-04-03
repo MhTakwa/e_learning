@@ -27,6 +27,7 @@
                                             <th>Id</th>
                                             <th>Label</th>
                                             <th>Category</th>
+                                            <th>Teacher</th>
                                             <th>Price</th>
                                                                               
                                             <th>Available_places</th>
@@ -43,6 +44,7 @@
                                                 <td>{{ course.id }}</td>
                                                 <td>{{ course.label }}</td>
                                                 <td>{{course.category}}</td>
+                                                <td>{{course.teacher.username}} {{course.teacher.username}}</td>
                                                 <td>{{ course.price }}</td>
                                                 <td>{{ course.availablePlaces }}</td>
                                                 <td>{{ course.startDate ? course.startDate|date('Y-m-d') : '' }}</td>

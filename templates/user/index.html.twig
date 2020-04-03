@@ -1,0 +1,58 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}Teachers{% endblock %}
+{%block stylesheets%}
+    <style>
+       
+        .submit{
+            margin-left: 90%;
+            margin-bottom: 10px;
+        }
+    </style>
+{%endblock%}
+{% block body %}
+<div class="header">
+    <h2>TEACHERS</h2>
+</div>
+
+<div class="body">
+    <a href="{{path('teacher_new')}}" class="submit btn btn-primary m-t-15 waves-effect">ADD TEACHER</a>
+</br>
+    
+    <div class="table-responsive">
+    <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Username</th>
+              
+             
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.username }}</td>
+        
+                <td>
+                    <a href="{{ path('teacher_edit', {'id': user.id}) }}">edit</a>
+                </td>
+                <td>
+                    <a href="{{ path('teacher_delete', {'id': user.id}) }}">delete</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+</div>
+
+   
+{% endblock %}

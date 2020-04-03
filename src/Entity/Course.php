@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -65,6 +67,13 @@ class Course
      * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="courses")
      */
     private $Category;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Teacher", inversedBy="courses")
+     */
+    private $teacher;
+
+    
 
     public function getId(): ?int
     {
@@ -190,6 +199,22 @@ class Course
 
         return $this;
     }
+
+    public function getTeacher(): ?Teacher
+    {
+        return $this->teacher;
+    }
+
+    public function setTeacher(?Teacher $teacher): self
+    {
+        $this->teacher = $teacher;
+
+        return $this;
+    }
+
+    
+
+   
 
 
 }
