@@ -1,59 +1,139 @@
 {% extends 'base_admin.html.twig' %}
 
 {% block title %}Course index{% endblock %}
-{%block stylesheets%}
+{%block stylesheets%} 
     <style>
        
         .submit{
             margin-left: 90%;
             margin-bottom: 10px;
         }
+        .state {
+        width: 25px;
+        height: 25px;
+        border-radius: 50px;
+    }
+    .canceled{
+        color: red;
+    }
+    .on_going{
+        color:green
+    }
+    .waiting{
+        color:orange
+    }
     </style>
+    
 {%endblock%}
 {% block body %}
    <!-- Basic Examples -->
    <div class="header">
     <h2>COURSES</h2>
 </div>
-     
+   <!-- Widgets -->
+   <div class="row clearfix">
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <a href="{{path('course_index')}}">
+        <div class="info-box bg-grey hover-expand-effect">
+            <div class="icon">
+                <i class="material-icons">playlist_add_check</i>
+            </div>
+            <div class="content">
+                <div class="text">ALL</div>
+                <div class="number count-to" data-from="0" data-to="{{count_all|length}}" data-speed="15" data-fresh-interval="1"></div>
+            </div>
+        </div>
+        </a>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <a href="{{path('course_index',{'filter':'1'})}}">
+        <div class="info-box bg-green hover-expand-effect">
+            <div class="icon">
+                <i class="material-icons">help</i>
+            </div>
+            <div class="content">
+                <div class="text">ON GOING</div>
+                <div class="number count-to" data-from="0" data-to="{{count_ongoing|length}}" data-speed="1000" data-fresh-interval="1"></div>
+            </div>
+        </div>
+        </a>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <a href="{{path('course_index',{'filter':'2'})}}">
+        <div class="info-box bg-orange hover-expand-effect">
+            <div class="icon">
+                <i class="material-icons">forum</i>
+            </div>
+            <div class="content">
+                <div class="text">COMING</div>
+                <div class="number count-to" data-from="0" data-to="{{count_coming|length}}" data-speed="1000" data-fresh-interval="1"></div>
+            </div>
+        </div>
+        </a>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <a href="{{path('course_index',{'filter':'0'})}}">
+        <div class="info-box bg-red hover-expand-effect">
+            <div class="icon">
+                <i class="material-icons">person_add</i>
+            </div>
+            <div class="content">
+                <div class="text">CANCELED</div>
+                <div class="number count-to" data-from="0" data-to="{{count_canceled|length}}" data-speed="1000" data-fresh-interval="1"></div>
+            </div>
+        </div>
+        </a>
+    </div>
+</div>
                         <div class="body">
+                            {%if is_granted('ROLE_ADMIN')%}
                             <a href="{{path('course_new')}}" class="submit btn btn-primary m-t-15 waves-effect">ADD COURSE</a>
+                            {%endif%}
                         </br>
                             
                             <div class="table-responsive">
                                 <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
                                     <thead>
                                         <tr>
-                                            <th>Id</th>
                                             <th>Label</th>
                                             <th>Category</th>
                                             <th>Teacher</th>
+                                            <th>State</th>
                                             <th>Price</th>
                                                                               
-                                            <th>Available_places</th>
+                                           
                                            
                                             <th>StartDate</th>
                                             <th></th>
-                                            <th></th>
+                                            {% if is_granted('ROLE_ADMIN')%}<th></th>{%endif%}
                                         </tr>
                                     </thead>
                                    
                                     <tbody>
                                         {% for course in courses %}
                                             <tr>
-                                                <td>{{ course.id }}</td>
+                                                
                                                 <td>{{ course.label }}</td>
                                                 <td>{{course.category}}</td>
                                                 <td>{{course.teacher.username}} {{course.teacher.username}}</td>
+                                                {%if course.state==0%}
+                                                    <td class="canceled">Canceled</td>
+                                                {%elseif course.state==1%}
+                                                    <td class="on_going">On Going</td>  
+                                                {%else%} 
+                                                    <td class="waiting">Coming</td>
+                                                {%endif%}
                                                 <td>{{ course.price }}</td>
-                                                <td>{{ course.availablePlaces }}</td>
+                                               
                                                 <td>{{ course.startDate ? course.startDate|date('Y-m-d') : '' }}</td>
                                                
                                                 <td> <a href="{{ path('course_edit', {'id': course.id}) }}">edit</a></td>
+                                                {% if is_granted('ROLE_ADMIN')%}
                                                 <td>
                                                     <a href="{{ path('course_delete', {'id': course.id}) }}">delete</a>
                                                    
                                                 </td>
+                                                {%endif%}
                                             </tr>
                                         {% else %}
                                             <tr>

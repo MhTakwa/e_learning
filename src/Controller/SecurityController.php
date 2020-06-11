@@ -61,4 +61,5 @@ class SecurityController extends AbstractController
     { 
        return $this->render('user/profile.html.twig');
     }
+ 
 }

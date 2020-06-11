@@ -1,0 +1,51 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}Qcm index{% endblock %}
+{%block stylesheets%}
+    <style>
+       
+        .submit{
+            margin-left: 90%;
+            margin-bottom: 10px;
+        }
+    </style>
+{%endblock%}
+{% block body %}
+<div class="header">
+    <h2>TEACHERS</h2>
+</div>
+
+    <h1>Qcm index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Question</th>
+                <th>Answer</th>
+                <th>Mark</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for qcm in qcms %}
+            <tr>
+                <td>{{ qcm.id }}</td>
+                <td>{{ qcm.question }}</td>
+                <td>{{ qcm.answer ? qcm.answer|join(', ') : '' }}</td>
+                <td>{{ qcm.mark }}</td>
+                <td>
+                    <a href="{{ path('qcm_show', {'id': qcm.id}) }}">show</a>
+                    <a href="{{ path('qcm_edit', {'id': qcm.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('qcm_new') }}">Create new</a>
+{% endblock %}

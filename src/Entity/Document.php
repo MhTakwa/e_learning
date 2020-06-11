@@ -26,6 +26,16 @@ class Document
      */
     private $content;
 
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $color;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Course", inversedBy="documents")
+     */
+    private $course;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -51,6 +61,30 @@ class Document
     public function setContent(string $content): self
     {
         $this->content = $content;
+
+        return $this;
+    }
+
+    public function getColor(): ?string
+    {
+        return $this->color;
+    }
+
+    public function setColor(?string $color): self
+    {
+        $this->color = $color;
+
+        return $this;
+    }
+
+    public function getCourse(): ?Course
+    {
+        return $this->course;
+    }
+
+    public function setCourse(?Course $course): self
+    {
+        $this->course = $course;
 
         return $this;
     }

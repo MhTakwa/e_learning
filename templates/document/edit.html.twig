@@ -1,0 +1,52 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}Edit Document{% endblock %}
+{%block stylesheets%}
+    <style>
+    button.btn.dropdown-toggle.btn-default {
+    visibility: hidden;
+    
+    margin-top: -60%;
+}
+.submit{
+    margin-left: 90%;
+    margin-bottom:50px;
+}
+input[type="color"] {
+	-webkit-appearance: none;
+	border: none;
+	width: 20px;
+	height: 20px;
+    margin-left: 95%;
+}
+input[type="color"]::-webkit-color-swatch-wrapper {
+	padding: 0;
+}
+input[type="color"]::-webkit-color-swatch {
+	border: none;
+}
+    </style>
+{%endblock%}
+{% block body %}
+    <h1>Edit Document</h1>
+
+    {{ include('document/_form.html.twig', {'button_label': 'Update'}) }}
+
+
+    
+{% endblock %}
+{%block scripts%}
+ <script>
+     $('._token').hide();
+     $('label[for=document__token]').remove();
+     $('input[for=document__token]').remove();
+     $('#document_color').prop('type','color');
+     $('#document_color').removeClass();
+     ////file
+     $('#document_content').prop('files','{{form.vars.data.content}}');
+     
+
+ </script>
+ 
+{%endblock%}
+

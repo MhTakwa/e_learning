@@ -24,8 +24,9 @@
         <thead>
             <tr>
                 <th>Name</th>
+                <th>Job</th>
                 <th>Email</th>
-              
+                <th>Number of Courses</th>
              
                 <th></th>
                 <th></th>
@@ -35,8 +36,10 @@
         {% for teacher in teachers %}
             <tr>
                 
-                <td>{{ teacher.username }} {{teacher.lastname}}</td>
+                <td><a href="{{ path('visit_profile',{'id':teacher.id}) }}">{{ teacher.username }} {{teacher.lastname}}</a></td>
+                <td>{{teacher.job}}</td>
                 <td>{{teacher.email}}</td>
+                <td>{{teacher.courses|length}} courses</td>
                 <td> <a href="{{ path('teacher_edit',{'id':teacher.id}) }}">edit</a></td>
                  <td>
                     <a href='{{ path("teacher_delete", {"id": teacher.id}) }}'>delete</a>

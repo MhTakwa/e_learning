@@ -1,0 +1,48 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}New MCQ{% endblock %}
+{%block stylesheets%}
+    <style>
+    button.btn.dropdown-toggle.btn-default {
+    visibility: hidden;
+    
+    margin-top: -60%;
+}
+     .submit{
+            margin-left: 90%;
+            margin-bottom:50px;
+        }
+    </style>
+{%endblock%}
+{% block body %}
+<div class="header">
+    <h2>CREATE NEW MCQ</h2>
+</div>
+    
+       <!-- Modal HTML embedded directly into document -->
+<div id="ex1" class="modal">
+     <input type="string" name="choice">
+     <input type="submit" value="confirmer">
+
+  </div>
+  
+ 
+
+        {{ include('qcm/_form.html.twig') }}
+
+
+  
+      
+{% endblock %}
+{%block scripts%}
+ <script>
+     $('._token').hide();
+     $('label[for=qcm__token]').remove();
+     $('input[for=qcm__token]').remove();
+     $('.qcm_choices').select2({width:"100%"});
+     //alert('input[for=]')
+     
+    
+ </script>
+ 
+{%endblock%}

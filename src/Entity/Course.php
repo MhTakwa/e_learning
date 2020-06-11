@@ -38,11 +38,7 @@ class Course
      */
     private $duration;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $available_places;
-
+    
     /**
      * @ORM\Column(type="string", length=1255)
      */
@@ -72,6 +68,23 @@ class Course
      * @ORM\ManyToOne(targetEntity="App\Entity\Teacher", inversedBy="courses")
      */
     private $teacher;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $state;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Document", mappedBy="course")
+     */
+    private $documents;
+
+   
+    public function __construct()
+    {
+        $this->documents = new ArrayCollection();
+        
+    }
 
     
 
@@ -128,18 +141,7 @@ class Course
         return $this;
     }
 
-    public function getAvailablePlaces(): ?int
-    {
-        return $this->available_places;
-    }
-
-    public function setAvailablePlaces(int $available_places): self
-    {
-        $this->available_places = $available_places;
-
-        return $this;
-    }
-
+ 
     public function getImage(): ?string
     {
         return $this->image;
@@ -212,7 +214,52 @@ class Course
         return $this;
     }
 
-    
+    public function getState(): ?int
+    {
+        return $this->state;
+    }
+
+    public function setState(?int $state): self
+    {
+        $this->state = $state;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Document[]
+     */
+    public function getDocuments(): Collection
+    {
+        return $this->documents;
+    }
+
+    public function addDocument(Document $document): self
+    {
+        if (!$this->documents->contains($document)) {
+            $this->documents[] = $document;
+            $document->setCourse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDocument(Document $document): self
+    {
+        if ($this->documents->contains($document)) {
+            $this->documents->removeElement($document);
+            // set the owning side to null (unless already changed)
+            if ($document->getCourse() === $this) {
+                $document->setCourse(null);
+            }
+        }
+
+        return $this;
+    }
+    public function __toString(){
+        return $this->label;
+    }
+
 
    
 

@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/user")
+ * @Route("/users")
  */
 class UserController extends AbstractController
 {
@@ -101,5 +101,12 @@ class UserController extends AbstractController
        if($user)
             return new Response("1");
         return new Response("0");
+    }
+       /**
+     * @Route("/profile/{id}", name="visit_profile", methods={"GET"})
+     */
+    public function visitProfile(Request $request,User $user): Response
+    { 
+      return $this->render('user/profile.html.twig',['user'=>$user]);
     }
 }

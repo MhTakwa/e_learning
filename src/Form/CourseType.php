@@ -23,7 +23,6 @@ class CourseType extends AbstractType
             ->add('price')
             ->add('discount')
             ->add('duration')
-            ->add('available_places')
             ->add('image')
             ->add('shortDesc')
             ->add('longDesc')

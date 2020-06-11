@@ -1,0 +1,217 @@
+{%extends 'base.html.twig'%}
+{%block stylesheets%}
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+
+  <!-- Bootstrap Core Css -->
+  <link href="{{asset('admin/plugins/bootstrap/css/bootstrap.css')}}" rel="stylesheet">
+
+  <!-- Waves Effect Css -->
+  <link href="{{asset('admin/plugins/node-waves/waves.css')}}" rel="stylesheet" />
+
+  <!-- Animation Css -->
+  <link href="{{asset('admin/plugins/animate-css/animate.css')}}" rel="stylesheet" />
+
+  <!-- Morris Chart Css-->
+  <link href="{{asset('admin/plugins/morrisjs/morris.css')}}" rel="stylesheet" />
+
+  <!-- Custom Css -->
+  <link href="{{asset('admin/css/style.css')}}" rel="stylesheet">
+
+  <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
+  <link href="{{asset('admin/css/themes/all-themes.css')}}" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="{{asset('styles/courses.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('styles/courses_responsive.css')}}">
+<style>
+    section.container {
+    margin-top: 50px;
+}
+.user_profile{
+    width: -webkit-fill-available;
+}
+.alert_danger{
+    background-color: #e91e7245;
+    
+}
+.row.body{
+    margin-left: 30px;
+    margin-top: 30px;
+}
+.link-box{
+    padding: 15px;
+    box-shadow: 0px 2px 5px #80808024, 0px -2px 5px #80808024;
+    background-color: #8080802b;
+    font-weight: bold;
+}
+.body{
+    height: 600px;
+}
+</style>
+  {%endblock%}
+{%block breadcrumbs%}
+<div class="home">
+    <div class="breadcrumbs_container">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="breadcrumbs">
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li>{{course.label}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>			
+</div>
+{%endblock%}
+{%block body%}
+     <!-- Example Tab -->
+     <div class="row body">
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+            <div class="card">
+                {%for document in course.documents%}
+
+                  <a class="link-box" data="{{document.id}}" href="#">{{document.label}}</a>  
+                {%endfor%}
+            </div>
+        </div>
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+            <div class="card">
+                <div class="header">
+                    <h2>
+                         {{course.label}}
+                        <small>{{course.shortDesc}}</small>
+                    </h2>
+                    <ul class="header-dropdown m-r--5">
+                        <li class="dropdown">
+                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">more_vert</i>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li><a href="javascript:void(0);">Action</a></li>
+                                <li><a href="javascript:void(0);">Another action</a></li>
+                                <li><a href="javascript:void(0);">Something else here</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="body">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs tab-nav-right" role="tablist">
+                        <li role="presentation" class="active"><a href="#home" data-toggle="tab">HOME</a></li>
+                        <li role="presentation"><a href="#profile" data-toggle="tab">PROFILE</a></li>
+                        <li role="presentation"><a href="#messages" data-toggle="tab">MESSAGES</a></li>
+                        <li role="presentation"><a href="#settings" data-toggle="tab">SETTINGS</a></li>
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane fade in active" id="home">
+                            <b>Home Content</b>
+                            <p>
+                                Lorem ipsum dolor sit amet, ut duo atqui exerci dicunt, ius impedit mediocritatem an. Pri ut tation electram moderatius.
+                                Per te suavitate democritum. Duis nemore probatus ne quo, ad liber essent aliquid
+                                pro. Et eos nusquam accumsan, vide mentitum fabellas ne est, eu munere gubergren
+                                sadipscing mel.
+                            </p>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="profile">
+                            <b>Profile Content</b>
+                            <p>
+                                Lorem ipsum dolor sit amet, ut duo atqui exerci dicunt, ius impedit mediocritatem an. Pri ut tation electram moderatius.
+                                Per te suavitate democritum. Duis nemore probatus ne quo, ad liber essent aliquid
+                                pro. Et eos nusquam accumsan, vide mentitum fabellas ne est, eu munere gubergren
+                                sadipscing mel.
+                            </p>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="messages">
+                            <b>Message Content</b>
+                            <p>
+                                Lorem ipsum dolor sit amet, ut duo atqui exerci dicunt, ius impedit mediocritatem an. Pri ut tation electram moderatius.
+                                Per te suavitate democritum. Duis nemore probatus ne quo, ad liber essent aliquid
+                                pro. Et eos nusquam accumsan, vide mentitum fabellas ne est, eu munere gubergren
+                                sadipscing mel.
+                            </p>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="settings">
+                            <b>Settings Content</b>
+                            <p>
+                                Lorem ipsum dolor sit amet, ut duo atqui exerci dicunt, ius impedit mediocritatem an. Pri ut tation electram moderatius.
+                                Per te suavitate democritum. Duis nemore probatus ne quo, ad liber essent aliquid
+                                pro. Et eos nusquam accumsan, vide mentitum fabellas ne est, eu munere gubergren
+                                sadipscing mel.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>
+{%endblock%}
+{%block javascripts%}
+<!-- Jquery Core Js -->
+<script src="{{asset('admin/plugins/jquery/jquery.min.js')}}"></script>
+
+<!-- Bootstrap Core Js -->
+<script src="{{asset('admin/plugins/bootstrap/js/bootstrap.js')}}"></script>
+
+<!-- Select Plugin Js -->
+<script src="{{asset('admin/plugins/bootstrap-select/js/bootstrap-select.js')}}"></script>
+
+<!-- Slimscroll Plugin Js -->
+<script src="{{asset('admin/plugins/jquery-slimscroll/jquery.slimscroll.js')}}"></script>
+
+<!-- Waves Effect Plugin Js -->
+<script src="{{asset('admin/plugins/node-waves/waves.js')}}"></script>
+
+<!-- Jquery CountTo Plugin Js -->
+<script src="{{asset('admin/plugins/jquery-countto/jquery.countTo.js')}}"></script>
+
+<!-- Morris Plugin Js -->
+<script src="{{asset('admin/plugins/raphael/raphael.min.js')}}"></script>
+<script src="{{asset('admin/plugins/morrisjs/morris.js')}}"></script>
+
+<!-- ChartJs -->
+<script src="{{asset('admin/plugins/chartjs/Chart.bundle.js')}}"></script>
+
+<!-- Flot Charts Plugin Js -->
+<script src="{{asset('admin/plugins/flot-charts/jquery.flot.js')}}"></script>
+<script src="{{asset('admin/plugins/flot-charts/jquery.flot.resize.js')}}"></script>
+<script src="{{asset('admin/plugins/flot-charts/jquery.flot.pie.js')}}"></script>
+<script src="{{asset('admin/plugins/flot-charts/jquery.flot.categories.js')}}"></script>
+<script src="{{asset('admin/plugins/flot-charts/jquery.flot.time.js')}}"></script>
+
+<!-- Sparkline Chart Plugin Js -->
+<script src="{{asset('admin/plugins/jquery-sparkline/jquery.sparkline.js')}}"></script>
+
+<!-- Custom Js -->
+<script src="{{asset('admin/js/admin.js')}}"></script>
+<script src="{{asset('admin/js/pages/index.js')}}"></script>
+
+<!-- Demo Js -->
+<script src="{{asset('admin/js/demo.js')}}"></script>
+<script>
+    $('#home').html("<b>"+"{{course.documents[0].label}}"+"</b><p>"+"{{course.documents[0].content}}"+"</p>");
+
+        $('a.link-box').on('click',function(){
+            var id=$(this).attr('data');
+            $.ajax({
+           
+             url:"{{path('courseware_document')}}",
+             method:"post",
+             data:{'id':id}
+         }).done(function(res){ 
+             
+            $('#home').html('<iframe src='+res+' frameborder="0" height="500px" width="100%"></iframe>');
+         });
+		});
+	</script>
+ 
+
+
+{%endblock%}

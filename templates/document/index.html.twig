@@ -1,0 +1,57 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}Document index{% endblock %}
+{%block stylesheets%}
+<style>
+  
+         
+    .submit{
+                margin-left: 90%;
+                margin-bottom: 20px;
+                margin-top: -15px;
+            }
+    </style>
+{%endblock%}
+{% block body %}
+
+<div class="header">
+    <h2>DOCUMENT</h2>
+</div>
+    <div class="body">
+        
+        <a href="{{path('document_new')}}" class="submit btn btn-primary m-t-15 waves-effect">ADD DOCUMENT</a>
+        
+    </br>
+    <div class="table-responsive">
+    <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Label</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for document in documents %}
+            <tr>
+                <td>{{ document.id }}</td>
+                <td>{{ document.label }}</td>
+                
+                <td>
+                    <a href="{{ path('document_show', {'id': document.id}) }}">show</a>
+                </td>
+                <td>
+                    <a href="{{ path('document_edit', {'id': document.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+   </div>
+  
+{% endblock %}

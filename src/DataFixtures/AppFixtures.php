@@ -8,6 +8,7 @@ use App\Entity\User;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use App\Entity\Category;
 use App\Entity\Course;
+use App\Entity\Teacher;
 use Symfony\Component\Validator\Constraints\Date;
 use Faker;
 class AppFixtures extends Fixture
@@ -19,16 +20,36 @@ class AppFixtures extends Fixture
         $this->faker = Faker\Factory::create();
     }
     public function load(ObjectManager $manager)
-    {
+    {   ///////Admin
         $user=new User();
         $user->setUsername('takwa');
         $user->setLastname('mhadhbi');
         $user->setEmail('takwa@takwa.com');
         $user->setPassword($this->encoder->EncodePassword($user,'takwa'));
         $user->setRoles(['ROLE_ADMIN']);
+        
        $manager->persist($user);
+         ////user
+         $user=new User();
+         $user->setUsername('malek');
+         $user->setLastname('mhadhbi');
+         $user->setEmail('malek@malek.com');
+         $user->setPassword($this->encoder->EncodePassword($user,'malek'));
+         $user->setRoles(['ROLE_USER']);
+         $manager->persist($user);
+         
 
-      
+
+       ////teacher
+       $teacher=new Teacher();
+       $teacher->setUsername('mahdi');
+       $teacher->setLastname('mhadhbi');
+       $teacher->setEmail('mahdi@mahdi.com');
+       $teacher->setJob("maketting manager");
+       $teacher->setPassword($this->encoder->EncodePassword($user,'mahdi'));
+       $teacher->setRoles(['ROLE_USER','ROLE_TEACHER']);
+       $manager->persist($teacher);
+     
         ///////////////categories
         ///1
         $category=new Category();
@@ -58,25 +79,28 @@ class AppFixtures extends Fixture
         $course=new Course();
         $course->setLabel("Frensh");
         $course->setPrice(100);
-        $course->setAvailablePlaces(20);
+        $course->setState(1);
         $course->setShortDesc("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel gravida arcu. Vestibulum feugiat, sapien ultrices fermentum congue, quam velit venenatis sem");
         $course->setLongDesc("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel gravida arcu. Vestibulum feugiat, sapien ultrices fermentum congue, quam velit venenatis semLorem ipsum dolor sit amet, ");
         $course->setStartDate(new \DateTime());
         $course->setDuration(30);
-        $course->setImage("data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/9k=");
+
+        $course->setImage("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTGh8UbgIZWSTEoKn02fEd1wtNeevEPQFBuqlRrgMQV2c4Y9BQi&usqp=CAU");
         $course->setCategory($manager->getRepository(Category::class)->find(5));
+        $course->setTeacher($teacher);
         $manager->persist($course);
         ///////3
            $course=new Course();
-           $course->setLabel("Frensh");
+           $course->setLabel("PHP");
            $course->setPrice(100);
-           $course->setAvailablePlaces(20);
+           
            $course->setShortDesc("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel gravida arcu. Vestibulum feugiat, sapien ultrices fermentum congue, quam velit venenatis sem");
            $course->setLongDesc("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel gravida arcu. Vestibulum feugiat, sapien ultrices fermentum congue, quam velit venenatis semLorem ipsum dolor sit amet, ");
            $course->setStartDate(new \DateTime());
            $course->setDuration(30);
-           $course->setImage("data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxMTEhUTExIVFhUXFRUYFxUVFxYVGBUVFRUXGBUVFxUYHSggGB0lGxUVITEhJSkrLi4uFx8zODMtNygtLisBCgoKDg0OGxAQGi");
+           $course->setImage("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTGh8UbgIZWSTEoKn02fEd1wtNeevEPQFBuqlRrgMQV2c4Y9BQi&usqp=CAU");
            $course->setCategory($manager->getRepository(Category::class)->find(5));
+           $course->setTeacher($teacher);
            $manager->persist($course); 
            $manager->flush();
     }

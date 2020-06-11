@@ -44,8 +44,15 @@ class User implements UserInterface,\Serializable
      */
     private $email;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Course")
+     */
+    private $EnrolledCourses;
+
      public function __construct(){
         $Roles=new ArrayCollection();
+        $this->EnrolledCourses = new ArrayCollection();
+      
       
     }
 
@@ -142,10 +149,35 @@ class User implements UserInterface,\Serializable
         return  $this->lastname."  ".$this->username;
     }
 
-    
+    /**
+     * @return Collection|Course[]
+     */
+    public function getEnrolledCourses(): Collection
+    {
+        return $this->EnrolledCourses;
+    }
 
+    public function addEnrolledCourse(Course $enrolledCourse): self
+    {
+        if (!$this->EnrolledCourses->contains($enrolledCourse)) {
+            $this->EnrolledCourses[] = $enrolledCourse;
+        }
 
+        return $this;
+    }
 
+    public function removeEnrolledCourse(Course $enrolledCourse): self
+    {
+        if ($this->EnrolledCourses->contains($enrolledCourse)) {
+            $this->EnrolledCourses->removeElement($enrolledCourse);
+        }
 
-    
+        return $this;
+    }
+
+    public function isGranted($role)
+{
+    return in_array($role, $this->getRoles());
+}
+ 
 }

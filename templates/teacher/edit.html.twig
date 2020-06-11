@@ -12,26 +12,65 @@
             margin-left: 90%;
             margin-bottom: 50px;
         }
+
+.user_image {
+    border-radius: 50%;
+    background-color: grey;
+    width: 60px;
+    height: 60px;
+}
+
+input#teacher_image {
+    visibility: hidden;
+}
     </style>
 {%endblock%}
-{% block body %}
+{% block body%}
     <h1>Edit Teacher</h1>
+    <image class="col-md-6 col-lg-6 user_image " src="{{asset(form.vars.form.vars.value.image)}}" ></image>
 
     {{ include('teacher/_form.html.twig', {'button_label': 'Update'}) }}
 
 {% endblock %}
 {%block scripts%}
  <script>
+    
+      var source=$('.user_image').attr('src');
+     if(source!=""){
+        $('.user_image').attr('src','/uploads/profile'.concat(source));
+        $('.user_image').css('background-color','transparent');
+        $('.user_image').css('width','fit-content');
+     }
+
+     $('.image').hide();
+     
+     $('#teacher_email').prop('type','email');
      $('#user_Roles').hide();
      $('._token').hide();
      $('label[for=user__token]').remove();
      $('input[for=user__token]').remove();
+     $('label[for=teacher_image]').remove();
      $(document).ready(function() {
         
         $('.js-datepicker').datepicker({
             format: 'yyyy-mm-dd'
         });
     });
+    $('.user_image').on('click',function(){
+    $('#teacher_image').click();
+});
+
+$('#teacher_image').on('change',function(){
+    var reader = new FileReader();
+
+    reader.onload = function (e) { 
+        
+        $('.user_image').attr('src', e.target.result);
+        $('.user_image').css('background-color','transparent');
+        $('.user_image').css('width','fit-content');
+    }
+    reader.readAsDataURL($('#teacher_image').prop('files')[0]);
+});
  </script>
  
 {%endblock%}

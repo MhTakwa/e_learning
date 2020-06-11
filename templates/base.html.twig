@@ -62,7 +62,11 @@
 									</li>
 								</ul>
 								<div class="top_bar_login ml-auto">
+									{%if app.user%}
+									<div class="login_button"><a href="{{path('dashboard')}}">{{app.user.lastName}} {{app.user.username}}</a></div>
+									{%else%}
 									<div class="login_button"><a href="{{path('app_login')}}">Register or Login</a></div>
+									{%endif%}
 								</div>
 							</div>
 						</div>
@@ -94,7 +98,7 @@
 								<div class="search_button"><i class="fa fa-search" aria-hidden="true"></i></div>
 
 								<!-- Hamburger -->
-                           
+                           <!--
 								<div class="shopping_cart">
 									<a href="{{path('cart')}}">
 										<i class="fa fa-shopping-cart" aria-hidden="true"></i>
@@ -107,7 +111,7 @@
 									<a>
 									
                                 </div>
-                          
+                          -->
 							</nav>
 
 						</div>
