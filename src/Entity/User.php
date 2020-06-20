@@ -45,7 +45,7 @@ class User implements UserInterface,\Serializable
     private $email;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Course")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Course",inversedBy="students")
      */
     private $EnrolledCourses;
 
@@ -168,6 +168,7 @@ class User implements UserInterface,\Serializable
 
     public function removeEnrolledCourse(Course $enrolledCourse): self
     {
+       
         if ($this->EnrolledCourses->contains($enrolledCourse)) {
             $this->EnrolledCourses->removeElement($enrolledCourse);
         }

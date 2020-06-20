@@ -23,10 +23,14 @@ class TeacherController extends AbstractController
     /**
      * @Route("/", name="teacher_index", methods={"GET"})
      */
-    public function index(TeacherRepository $teacherRepository): Response
+    public function index(TeacherRepository $teacherRepository,Request $request): Response
     {
+       
         return $this->render('teacher/index.html.twig', [
             'teachers' => $teacherRepository->findAll(),
+            'success_msg'=>$request->get('success_msg'),
+            'failed_msg'=>$request->get('failed_msg')
+
         ]);
     }
 
@@ -54,12 +58,14 @@ class TeacherController extends AbstractController
             $entityManager->persist($teacher);
             $entityManager->flush();
 
-            return $this->redirectToRoute('teacher_index');
+            return $this->redirectToRoute('teacher_index',['success_msg'=>'operation done with success',
+                                                            'failed_msg'=>null]);
         }
 
         return $this->render('teacher/new.html.twig', [
             'teacher' => $teacher,
             'form' => $form->createView(),
+
         ]);
     }
 
@@ -94,7 +100,7 @@ class TeacherController extends AbstractController
         $teacher->setPassword($encoder->EncodePassword($teacher,$teacher->getPassword()));
             $this->getDoctrine()->getManager()->flush();
             
-            return $this->redirectToRoute('teacher_index');
+            return $this->redirectToRoute('teacher_index',['success_msg'=>'operation done with sucess']);
         }
 
         return $this->render('teacher/edit.html.twig', [
@@ -137,13 +143,20 @@ class TeacherController extends AbstractController
      */
     public function password_reset(Request $request, UserInterface $user,UserPasswordEncoderInterface $encoder): Response
     {
+        $success_msg=null;
+        $failed_msg=null;
       $test=$encoder->isPasswordValid($user, $request->get('OldPassword'));
-      if($test)
-        $user->setPassword($encoder->EncodePassword($user,$request->get('NewPassword')));
-     
-      $manager=$this->getDoctrine()->getManager();
-      $manager->flush();
-      return $this->redirectToRoute('user_profile');
+      if($test){
+           $user->setPassword($encoder->EncodePassword($user,$request->get('NewPassword')));
+            $manager=$this->getDoctrine()->getManager();
+            $manager->flush();
+            $success_msg='operation done with success';
+      }
+      else
+      $failed_msg="not matching old password";
+       
+      return $this->redirectToRoute('user_profile',['success_msg'=>$success_msg,
+      'failed_msg'=>$failed_msg]);
     }
 
 

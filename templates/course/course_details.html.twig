@@ -68,7 +68,7 @@
 
 						<!-- Course Image -->
 						<div class="course_image"><img src="{{course.image}}" alt=""></div>
-
+                    
 						<!-- Course Tabs -->
 						<div class="course_tabs_container">
 							<div class="tabs d-flex flex-row align-items-center justify-content-start">
@@ -83,7 +83,7 @@
 									<div class="tab_panel_title">{{course.label}}</div>
 									<div class="tab_panel_content">
 										<div class="tab_panel_text">
-                                            <p>{{course.longDesc}}</p>
+                                            <p>{{course.shortDesc}}</p>
 										</div>
 										<div class="courses_button trans_200"><a href="{{path('course_enroll',{'id':course.id})}}">ENROLL</a></div>
 									
@@ -94,90 +94,25 @@
 								<!-- Curriculum -->
 								<div class="tab_panel tab_panel_2">
 									<div class="tab_panel_content">
-										<div class="tab_panel_title">Software Training</div>
+										<div class="tab_panel_title">{{course.label}}</div>
 										<div class="tab_panel_content">
 											<div class="tab_panel_text">
-												<p>Lorem Ipsn gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auci elit consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio.</p>
+												<p>{{course.shortDesc}}.</p>
 											</div>
 
 											<!-- Dropdowns -->
 											<ul class="dropdowns">
-												<li class="has_children">
+												{%for document in course.documents%}
+												<li >
 													<div class="dropdown_item">
 														<div class="dropdown_item_title"><span>Lecture 1:</span> Lorem Ipsn gravida nibh vel velit auctor aliquet.</div>
 														<div class="dropdown_item_text">
 															<p>Lorem Ipsn gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auci elit consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus.</p>
 														</div>
 													</div>
-													<ul>
-														<li>
-															<div class="dropdown_item">
-																<div class="dropdown_item_title"><span>Lecture 1.1:</span> Lorem Ipsn gravida nibh vel velit auctor aliquet.</div>
-																<div class="dropdown_item_text">
-																	<p>Lorem Ipsn gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auci elit consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus.</p>
-																</div>
-															</div>
-														</li>
-														<li>
-															<div class="dropdown_item">
-																<div class="dropdown_item_title"><span>Lecture 1.2:</span> Lorem Ipsn gravida nibh vel velit auctor aliquet.</div>
-																<div class="dropdown_item_text">
-																	<p>Lorem Ipsn gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auci elit consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus.</p>
-																</div>
-															</div>
-														</li>
-													</ul>
+													
 												</li>
-												<li class="has_children">
-													<div class="dropdown_item">
-														<div class="dropdown_item_title"><span>Lecture 2:</span> Lorem Ipsn gravida nibh vel velit auctor aliquet.</div>
-														<div class="dropdown_item_text">
-															<p>Lorem Ipsn gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auci elit consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus.</p>
-														</div>
-													</div>
-													<ul>
-														<li>
-															<div class="dropdown_item">
-																<div class="dropdown_item_title"><span>Lecture 2.1:</span> Lorem Ipsn gravida nibh vel velit auctor aliquet.</div>
-																<div class="dropdown_item_text">
-																	<p>Lorem Ipsn gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auci elit consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus.</p>
-																</div>
-															</div>
-														</li>
-														<li>
-															<div class="dropdown_item">
-																<div class="dropdown_item_title"><span>Lecture 2.2:</span> Lorem Ipsn gravida nibh vel velit auctor aliquet.</div>
-																<div class="dropdown_item_text">
-																	<p>Lorem Ipsn gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auci elit consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus.</p>
-																</div>
-															</div>
-														</li>
-													</ul>
-												</li>
-												<li>
-													<div class="dropdown_item">
-														<div class="dropdown_item_title"><span>Lecture 3:</span> Lorem Ipsn gravida nibh vel velit auctor aliquet.</div>
-														<div class="dropdown_item_text">
-															<p>Lorem Ipsn gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auci elit consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus.</p>
-														</div>
-													</div>
-												</li>
-												<li>
-													<div class="dropdown_item">
-														<div class="dropdown_item_title"><span>Lecture 4:</span> Lorem Ipsn gravida nibh vel velit auctor aliquet.</div>
-														<div class="dropdown_item_text">
-															<p>Lorem Ipsn gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auci elit consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus.</p>
-														</div>
-													</div>
-												</li>
-												<li>
-													<div class="dropdown_item">
-														<div class="dropdown_item_title"><span>Lecture 5:</span> Lorem Ipsn gravida nibh vel velit auctor aliquet.</div>
-														<div class="dropdown_item_text">
-															<p>Lorem Ipsn gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auci elit consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus.</p>
-														</div>
-													</div>
-												</li>
+												{%endfor%}
 											</ul>
 										</div>
 									</div>
@@ -414,6 +349,6 @@
 
 
 {% endblock %}
-{%block scripts%}
+{%block javascripts%}
 <script src="{{asset('js/course.js')}}"></script>
 {%endblock%}

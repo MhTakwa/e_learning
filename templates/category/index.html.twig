@@ -3,7 +3,7 @@
 {% block title %}Category index{% endblock %}
 {%block stylesheets%}
     <style>
-       
+
         .submit{
             margin-left: 90%;
             margin-bottom: 10px;
@@ -26,20 +26,19 @@
                     <th>Id</th>
                     <th>Label</th>
                    
-                    <th></th>
+                  
                     <th></th>
                 </tr>
             </thead>
            
             <tbody>
                 {% for category in categories %}
-                    <tr>
+                    <tr  class="clickable_row" data-href="{{ path('category_edit', {'id': category.id}) }}">
                         <td>{{ category.id }}</td>
                         <td>{{ category.label }}</td>
                         
                       
                        
-                        <td> <a href="{{ path('category_edit', {'id': category.id}) }}">edit</a></td>
                         <td>
                             <a href="{{ path('category_delete', {'id': category.id}) }}">delete</a>
                            
@@ -56,3 +55,10 @@
 </div>
  
 {% endblock %}
+{%block scripts%}
+<script>
+ $('.clickable_row').on('click',function(){
+    window.location = $(this).data("href");
+ });  
+</script>
+{%endblock%} 

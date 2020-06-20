@@ -33,7 +33,7 @@ class DocumentType extends AbstractType
                 ],
             ])
             
-            ->add('course')
+     
         ;
     }
 

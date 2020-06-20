@@ -47,8 +47,8 @@ class CourseController extends AbstractController
      */
     public function courseware(Request $request, Course $course): Response
     {
-         
-        return $this->render('course/courseware.html.twig',['course'=>$course]);
+       
+        return $this->render('course/courseware.html.twig',['course'=>$course,'first'=>array_slice($course->getDocuments()->toArray(),0,1)]);
     }
     
     
@@ -64,6 +64,7 @@ class CourseController extends AbstractController
             $response="";
        return new Response($response);
     }
-    
+
+       
 }
 ?>

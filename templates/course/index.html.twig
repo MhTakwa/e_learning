@@ -22,6 +22,9 @@
     .waiting{
         color:orange
     }
+    .completed{
+        color:blue
+    }
     </style>
     
 {%endblock%}
@@ -54,6 +57,19 @@
             <div class="content">
                 <div class="text">ON GOING</div>
                 <div class="number count-to" data-from="0" data-to="{{count_ongoing|length}}" data-speed="1000" data-fresh-interval="1"></div>
+            </div>
+        </div>
+        </a>
+    </div>
+      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <a href="{{path('course_index',{'filter':'3'})}}">
+        <div class="info-box bg-blue hover-expand-effect">
+            <div class="icon">
+                <i class="material-icons">help</i>
+            </div>
+            <div class="content">
+                <div class="text">COMPLETED</div>
+                <div class="number count-to" data-from="0" data-to="{{count_completed|length}}" data-speed="1000" data-fresh-interval="1"></div>
             </div>
         </div>
         </a>
@@ -100,39 +116,60 @@
                                             <th>Teacher</th>
                                             <th>State</th>
                                             <th>Price</th>
-                                                                              
-                                           
-                                           
-                                            <th>StartDate</th>
-                                            <th></th>
-                                            {% if is_granted('ROLE_ADMIN')%}<th></th>{%endif%}
+                                             {% if is_granted('ROLE_TEACHER')%}
+                                                <th></th>
+                                            {%endif%}
+                                            {% if is_granted('ROLE_ADMIN')%}
+                                                <th></th>
+                                                <th></th>
+                                            {%endif%}
                                         </tr>
                                     </thead>
                                    
                                     <tbody>
                                         {% for course in courses %}
-                                            <tr>
+                                            <tr   {%if course.state!=0%} class="clickable_row" {%else%}class="no_clickable_row" {%endif%} {% if course.state!=0 %}  data-href="{{ path('course_edit', {'id': course.id}) }}" {%endif%}>
                                                 
                                                 <td>{{ course.label }}</td>
                                                 <td>{{course.category}}</td>
                                                 <td>{{course.teacher.username}} {{course.teacher.username}}</td>
+                                
                                                 {%if course.state==0%}
                                                     <td class="canceled">Canceled</td>
                                                 {%elseif course.state==1%}
                                                     <td class="on_going">On Going</td>  
-                                                {%else%} 
+                                                {%elseif course.state==2%} 
                                                     <td class="waiting">Coming</td>
+                                                {%else%}
+                                                    <td class="completed">Complted</td>
                                                 {%endif%}
                                                 <td>{{ course.price }}</td>
-                                               
-                                                <td>{{ course.startDate ? course.startDate|date('Y-m-d') : '' }}</td>
-                                               
-                                                <td> <a href="{{ path('course_edit', {'id': course.id}) }}">edit</a></td>
+                                            
+                                                                                          
+                                                 
+                                           
+                                                {%if is_granted('ROLE_TEACHER') %}
+                                                <td>
+                                                {%if course.state==2 and  course.state!=0 and course.state!=3 %}
+                                                <a href="{{ path('course_complete', {'id': course.id}) }}">Complete</a>  
+                                                {%endif%}
+                                                </td>
+                                                {%endif%}
                                                 {% if is_granted('ROLE_ADMIN')%}
+                                             
+                                                                                              
+                                                <td>
+                                                    {%if course.state==0%}
+                                                    <a href="{{ path('course_restore', {'id': course.id}) }}">Restore</a>
+                                                    {%else%}
+                                                    <a href="{{ path('course_cancel', {'id': course.id}) }}">cancel</a>
+                                                    {%endif%}
+                                                </td>
                                                 <td>
                                                     <a href="{{ path('course_delete', {'id': course.id}) }}">delete</a>
-                                                   
+                                                                                                    
                                                 </td>
+                                                
                                                 {%endif%}
                                             </tr>
                                         {% else %}
@@ -149,6 +186,11 @@
 {% endblock %}
 {%block scripts%}
 <script>
-    $('.table').datatable();
+ $('.clickable_row').on('click',function(){
+    window.location = $(this).data("href");
+ }); 
+ $('.no_clickable_row').on('click',function(e){
+    e.preventDefault();
+ });  
 </script>
-{%endblock%}
+{%endblock%} 

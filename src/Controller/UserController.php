@@ -107,6 +107,8 @@ class UserController extends AbstractController
      */
     public function visitProfile(Request $request,User $user): Response
     { 
-      return $this->render('user/profile.html.twig',['user'=>$user]);
+      return $this->render('user/profile.html.twig',['user'=>$user,
+      'success_msg'=>$request->get('success_msg'),
+      'failed_msg'=>$request->get('failed_msg')]);
     }
 }

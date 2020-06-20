@@ -31,6 +31,7 @@ class Admin_CourseController extends AbstractController
         $count_ongoing=$courseRepository->findBy(['state'=>1]);
         $count_coming=$courseRepository->findBy(['state'=>2]);
         $count_canceled=$courseRepository->findBy(['state'=>0]);
+        $count_completed=$courseRepository->findBy(['state'=>3]);
         $filter=(int)$request->get('filter'); 
         if($filter)
         $courses=$courseRepository->findBy(['state'=>$filter]);
@@ -42,6 +43,7 @@ class Admin_CourseController extends AbstractController
         $count_ongoing=$courseRepository->findBy(['state'=>1,'teacher'=>$user]);
         $count_coming=$courseRepository->findBy(['state'=>2,'teacher'=>$user]);
         $count_canceled=$courseRepository->findBy(['state'=>0,'teacher'=>$user]);
+        $count_completed=$courseRepository->findBy(['state'=>3,'teacher'=>$user]);
         $filter=(int)$request->get('filter'); 
         if($filter)
         $courses=$courseRepository->findBy(['state'=>$filter,'teacher'=>$user]);
@@ -54,7 +56,10 @@ class Admin_CourseController extends AbstractController
             'count_all'=>$count_all,
             'count_ongoing'=>$count_ongoing,
             'count_coming'=>$count_coming,
-            'count_canceled'=>$count_canceled
+            'count_canceled'=>$count_canceled,
+            'count_completed'=>$count_completed,
+            'success_msg'=>$request->get('success_msg'),
+            'failed_msg'=>$request->get('failed_msg')
         ]);
     }
 
@@ -134,7 +139,46 @@ class Admin_CourseController extends AbstractController
         return $this->redirectToRoute('course_index');
     }
         
+             /**
+     * @Route("/course_cancel/{id}", name="course_cancel", methods={"GET","POST"})
+     */
+    public function course_cancel (Request $request,Course $course): Response
+    {
+        $entityManager=$this->getDoctrine()->getManager();
+        $course->setState(0);
+        $entityManager->flush();
+        return $this->redirectToRoute('course_index',['success_msg'=>'operation done with success',
+                                                            'failed_msg'=>null]);
+        
 
+    }
+              /**
+     * @Route("/course_restore/{id}", name="course_restore", methods={"GET","POST"})
+     */
+    public function course_restore (Request $request,Course $course): Response
+    {
+        $entityManager=$this->getDoctrine()->getManager();
+        $course->setState(1);
+        $entityManager->flush();
+        return $this->redirectToRoute('course_index',['success_msg'=>'operation done with success',
+                                                            'failed_msg'=>null]);
+        
+
+    }
+     /**
+     * @Route("/course_complete/{id}", name="course_complete", methods={"GET","POST"})
+     */
+    public function course_complete (Request $request,Course $course): Response
+    {
+        $entityManager=$this->getDoctrine()->getManager();
+        $course->setState(3);
+        $entityManager->flush();
+        return $this->redirectToRoute('course_index',['success_msg'=>'operation done with success',
+                                                            'failed_msg'=>null]);
+        
+
+    }
+    
 
 
 }

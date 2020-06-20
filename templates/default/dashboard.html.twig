@@ -74,29 +74,33 @@ height: 150px;
 						<!-- Accordions -->
 						<div class="courses_container">
 							<div class="row courses_row">
-							
-							<div class="elements_accordions">
-                              {%for course in courses%}
-							  <div class="col-lg-4 course_col">
-								<div class="course">
-									<div class="course_image"><img src="{{course.image}}" alt=""></div>
-									<div class="course_body">
-										<h3 class="course_title"><a href="{{path('course_details',{'id':course.id})}}">{{course.label|upper}}</a></h3>
-										<div class="course_teacher"> {{course.teacher.lastname}} {{course.teacher.username}}</div>
-										<div class="course_text">
-											<p>{{course.shortDesc}}</p>
-										</div>
-									</div>
-									<div class="course_footer">
-										<div class="course_footer_content d-flex flex-row align-items-center justify-content-start">
+								{%for course in courses%}
+								<!-- Course -->
+								<div class="col-lg-4 course_col">
+									<div class="course">
+										<div class="course_image"><img class="image_course" src="{{course.image}}" alt=""></div>
+										<div class="course_body">
+											<h3 class="course_title"><a href="{{path('courseware',{'id':course.id})}}">{{course.label|upper}}</a></h3>
+											<div class="course_teacher"><a href="{{ path('visit_profile',{'id':course.teacher.id}) }}">{{course.teacher.lastname}} {{course.teacher.username}}</a></div>
 										
-											<div class="courses_button trans_200"><a href="{{path('courseware',{'id':course.id})}}">view course</a></div>
+										</div>
+										<div class="course_footer">
+											<div class="course_footer_content d-flex flex-row align-items-center justify-content-start">
+												<div class="course_info">
+													<i class="fa fa-graduation-cap" aria-hidden="true"></i>
+													<span>{{course.students|length}}</span>
+												</div>
+												
+												<div class="course_price ml-auto">${{course.price}}</div>
+											</div>
 										</div>
 									</div>
+									<br>	<br>
 								</div>
-							</div>
-								{%endfor%}
-								</div>
+							
+								 {%endfor%}
+								
+				
 							</div>
 
 								

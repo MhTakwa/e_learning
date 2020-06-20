@@ -1,58 +1,86 @@
-{%extends 'base_admin.html.twig'%}
-{%block stylesheets%}
-<style>
-.body{
-    height:200px;
-}
-     
-.submit{
-            margin-left: 80%;
-            margin-bottom: 20px;
-            margin-top: -45px;
+
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}Course Edit{% endblock %}
+{%block stylesheets%} 
+    <style>
+       
+        .submit{
+            margin-left: 85%;
+            margin-bottom: 10px;
         }
-</style>
-{%endblock%}
-{%block body%}
+        .state {
+        width: 25px;
+        height: 25px;
+        border-radius: 50px;
+    }
 
-         <div class="block-header">
-            <h2>{{course.label}}</h2>
-        </div>
-        <!-- Basic Example -->
-        <div class="row clearfix">
-            <a href="{{path('document_new')}}" class="submit btn btn-primary m-t-15 waves-effect">ADD DOCUMENT</a>
-            {%for document in course.documents%}
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <div class="card">
-                    <div class="header" style="background-color: {{document.color}}">
-                        <h2>
-                           {{document.label}} 
-                        </h2>
-                        <ul class="header-dropdown m-r--5">
-                            <li class="dropdown">
-                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                    <i class="material-icons">more_vert</i>
-                                </a>
-                                <ul class="dropdown-menu pull-right">
-                                    <li><a href="javascript:void(0);">Action</a></li>
-                                    <li><a href="javascript:void(0);">Another action</a></li>
-                                    <li><a href="javascript:void(0);">Something else here</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="body">
-                    <p>  {{document.content}}</p>
-                    </div>
-                </div>
-            </div>
-            {%endfor%}
-           
-        </div>
-  
-
+    </style> 
+    
 {%endblock%}
+{% block body %}
+   <!-- Basic Examples -->
+   <div class="header">
+    <h2>{{course.label}}</h2>
+</div>
+             <div class="body">
+                          
+                            <a href="{{path('document_new',{course_id:course.id})}}" class="submit btn btn-primary m-t-15 waves-effect">ADD DOCUMENT</a>
+                           
+                        </br>
+                            
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                    <thead>
+                                        <tr >
+                                            <th>Label</th>
+                                                       
+
+                                                <th></th>
+                                  
+                                     
+                                        </tr>
+                                    </thead>
+                                   
+                                    <tbody>
+                                        {% for document in course.documents %}  
+                                            <tr  class="clickable_row"  data-href="{{ path('document_edit', {'id': document.id}) }}"   >
+                                                
+                                                <td>{{ document.label }}</td>
+                                              
+                                               
+                                              
+                                                
+                                              
+                                               
+                                                <td>
+                                                    <a href="{{ path('document_delete', {'id': document.id}) }}">delete</a>
+                                                    
+                                                   
+                                                </td>
+                                          
+                                            </tr>
+                                        {% else %}
+                                            <tr>
+                                                <td colspan="11">no records found</td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                             <a class="back btn btn-danger m-t-15 waves-effect" href="{{ path('course_index') }}">back to list</a>
+                             </div>
+                            
+                        </div>
+ 
+{% endblock %}
 {%block scripts%}
 <script>
-   $('.container-fluid.card').removeClass();
+ $('.clickable_row').on('click',function(){
+    window.location = $(this).data("href");
+ });  
 </script>
-{%endblock%}
+{%endblock%} 

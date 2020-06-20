@@ -29,9 +29,9 @@ class DocumentController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="document_new", methods={"GET","POST"})
+     * @Route("/new/{course_id}", name="document_new", methods={"GET","POST"})
      */
-    public function new(Request $request,SluggerInterface $slugger): Response
+    public function new(Request $request,SluggerInterface $slugger,Course $course_id): Response
     {
         $document = new Document();
         $form = $this->createForm(DocumentType::class, $document);
@@ -39,18 +39,20 @@ class DocumentController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $pdf = $form->get('content')->getData();
-            $course=$form->get('course')->getData();
+            $document->setCourse($course_id);
+            if($course_id->getState()==2)
+                $course_id->setState(1);
             if ($pdf) {
-               $filename=$this->uploadFile($pdf,$slugger,$course);
+               $filename=$this->uploadFile($pdf,$slugger,$course_id);
                if($filename) 
                    $document->setContent($filename);
-              
+            //  dd($document->getContent());
            }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($document);
             $entityManager->flush();
 
-            return $this->redirectToRoute('document_index');
+            return $this->redirectToRoute('course_edit',['id'=>$course_id->getId()]);
         }
 
         return $this->render('document/new.html.twig', [
@@ -72,20 +74,25 @@ class DocumentController extends AbstractController
     /**
      * @Route("/{id}/edit", name="document_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Document $document): Response
+    public function edit(Request $request, Document $document,SluggerInterface $slugger): Response
     {
       
        
         $form = $this->createForm(DocumentType::class, $document);
-        $document->setContent(
-            new File($this->getParameter('document_directory').'/'.$document->getCourse()->getlabel().'/'.$document->getContent())
-        );
+        $document->setContent( new File($this->getParameter('document_directory').'/'. $document->getCourse()->getLabel() .'/'.$document->getContent()));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $pdf = $form->get('content')->getData();
+            if ($pdf) {
+                $filename=$this->uploadFile($pdf,$slugger,$document->getCourse());
+                if($filename) 
+                    $document->setContent($filename);
+             //  dd($document->getContent());
+            }
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('document_index');
+            return $this->redirectToRoute('course_edit',['id'=>$document->getCourse()->getId()]);
         }
 
         return $this->render('document/edit.html.twig', [
@@ -95,17 +102,17 @@ class DocumentController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="document_delete", methods={"DELETE"})
+     * @Route("/delete/{id}", name="document_delete", methods={"GET"})
      */
     public function delete(Request $request, Document $document): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$document->getId(), $request->request->get('_token'))) {
+     
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($document);
             $entityManager->flush();
-        }
+        
 
-        return $this->redirectToRoute('document_index');
+            return $this->redirectToRoute('course_edit',['id'=>$document->getCourse()->getId()]);
     }
     private function uploadFile($file, SluggerInterface $slugger,Course $course){ 
         $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
@@ -115,10 +122,7 @@ class DocumentController extends AbstractController
        // die(var_dump($newFilename));
         // Move the file to the directory where brochures are stored
         try {
-            $file->move(
-                $this->getParameter('document_directory').'/'.$course->getLabel(),
-                $newFilename
-            );
+            $file->move($this->getParameter('document_directory').'/'. $course->getLabel() ,$newFilename);
         } catch (FileException $e) {
             // ... handle exception if something happens during file upload
         }

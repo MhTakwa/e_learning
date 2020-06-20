@@ -22,15 +22,12 @@
 {% endblock %}
 {%block scripts%}
  <script>
+     $(document).ready(function(){
      $('#user_Roles').hide();
      $('._token').hide();
      $('label[for=user__token]').remove();
      $('input[for=user__token]').remove();
-     $(document).ready(function() {
-        
-        $('.js-datepicker').datepicker({
-            format: 'yyyy-mm-dd'
-        });
+     $('#teacher_image').removeClass("form-control");
     });
  </script>
  

@@ -27,20 +27,19 @@
                 <th>Job</th>
                 <th>Email</th>
                 <th>Number of Courses</th>
-             
-                <th></th>
+          
                 <th></th>
             </tr>
         </thead>
         <tbody>
         {% for teacher in teachers %}
-            <tr>
+            <tr  class="clickable_row" data-href="{{ path('teacher_edit',{'id':teacher.id}) }}">
                 
                 <td><a href="{{ path('visit_profile',{'id':teacher.id}) }}">{{ teacher.username }} {{teacher.lastname}}</a></td>
                 <td>{{teacher.job}}</td>
                 <td>{{teacher.email}}</td>
                 <td>{{teacher.courses|length}} courses</td>
-                <td> <a href="{{ path('teacher_edit',{'id':teacher.id}) }}">edit</a></td>
+                
                  <td>
                     <a href='{{ path("teacher_delete", {"id": teacher.id}) }}'>delete</a>
                  </td>
@@ -58,3 +57,10 @@
 
    
 {% endblock %}
+{%block scripts%}
+<script>
+ $('.clickable_row').on('click',function(){
+    window.location = $(this).data("href");
+ });  
+</script>
+{%endblock%} 

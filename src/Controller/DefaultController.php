@@ -12,6 +12,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
+
+use Doctrine\Common\Collections\ArrayCollection;
 class DefaultController extends AbstractController
 {
     /**
@@ -25,6 +27,7 @@ class DefaultController extends AbstractController
         $teachers=$this->getDoctrine()->getRepository(Teacher::class)->findAll();
         return $this->render('default/index.html.twig', [
             'controller_name' => 'DefaultController',
+            'categories'=>$categories,
             'courses'=>array_slice($courses,0,3),
             'teachers'=>array_slice($teachers,0,3)
         ]);
@@ -34,8 +37,10 @@ class DefaultController extends AbstractController
      */
     public function about()
     {
+        $teachers=$this->getDoctrine()->getRepository(Teacher::class)->findAll();
         return $this->render('default/about.html.twig', [
             'controller_name' => 'DefaultController',
+            'teachers'=>array_slice($teachers,0,3)
         ]);
     }
         /**
@@ -86,9 +91,10 @@ class DefaultController extends AbstractController
     {
         if($user->isGranted('ROLE_ADMIN'))
             return  $this->redirectToRoute('admin');
+         
+       
         
-        $courses=$user->getEnrolledCourses();
-        return $this->render('default/dashboard.html.twig',['courses'=>$courses]);
+            return $this->render('default/dashboard.html.twig',['courses'=>$user->getEnrolledCourses()]);
     }
      /**
      * @Route("/search/", name="course_search")
@@ -103,13 +109,13 @@ class DefaultController extends AbstractController
         if($label!=null)
             $var['label']='%'.$label.'%';
         
-            ////die(var_dump($var));
-         $courses=$this->getDoctrine()->getManager()->getRepository(Course::class)->findBy($var);                 
+          ///  die(var_dump($var));
+         $courses=$this->getDoctrine()->getManager()->getRepository(Course::class)->findBy($var);     
          $categories=$this->getDoctrine()->getManager()->getRepository(Category::class)->findAll();
         return $this->render('default/courses.html.twig',[
             'courses'=>$courses,
             'categories'=>$categories]);
     }
-     
+    
 
 }

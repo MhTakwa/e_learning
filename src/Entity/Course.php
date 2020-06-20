@@ -33,12 +33,7 @@ class Course
      */
     private $discount;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $duration;
 
-    
     /**
      * @ORM\Column(type="string", length=1255)
      */
@@ -49,15 +44,7 @@ class Course
      */
     private $shortDesc;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $longDesc;
 
-    /**
-     * @ORM\Column(type="date")
-     */
-    private $startDate;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="courses")
@@ -78,11 +65,16 @@ class Course
      * @ORM\OneToMany(targetEntity="App\Entity\Document", mappedBy="course")
      */
     private $documents;
+       /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\User",mappedBy="EnrolledCourses")
+     */
+    private $students;
 
    
     public function __construct()
     {
         $this->documents = new ArrayCollection();
+        $this->students=new ArrayCollection();
         
     }
 
@@ -129,17 +121,6 @@ class Course
         return $this;
     }
 
-    public function getDuration(): ?int
-    {
-        return $this->duration;
-    }
-
-    public function setDuration(int $duration): self
-    {
-        $this->duration = $duration;
-
-        return $this;
-    }
 
  
     public function getImage(): ?string
@@ -166,29 +147,11 @@ class Course
         return $this;
     }
 
-    public function getLongDesc(): ?string
-    {
-        return $this->longDesc;
-    }
+ 
 
-    public function setLongDesc(?string $longDesc): self
-    {
-        $this->longDesc = $longDesc;
 
-        return $this;
-    }
 
-    public function getStartDate(): ?\DateTimeInterface
-    {
-        return $this->startDate;
-    }
 
-    public function setStartDate(\DateTimeInterface $startDate): self
-    {
-        $this->startDate = $startDate;
-
-        return $this;
-    }
 
     public function getCategory(): ?Category
     {
@@ -261,7 +224,17 @@ class Course
     }
 
 
-   
+     
+    
+    /**
+     * @return Collection|Document[]
+     */
+    public function getStudents(): Collection
+    {
+        return $this->students;
+    }
+
+  
 
 
 }

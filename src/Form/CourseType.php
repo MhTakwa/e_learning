@@ -22,11 +22,10 @@ class CourseType extends AbstractType
             ]])
             ->add('price')
             ->add('discount')
-            ->add('duration')
+            
             ->add('image')
             ->add('shortDesc')
-            ->add('longDesc')
-            ->add('startDate', DateType::class)
+           
             ->add('category', EntityType::class, [
                 'class' => Category::class,
             ])

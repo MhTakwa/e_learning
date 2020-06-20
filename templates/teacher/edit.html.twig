@@ -59,7 +59,8 @@ input#teacher_image {
     $('.user_image').on('click',function(){
     $('#teacher_image').click();
 });
-
+$('#teacher_image').attr('required',false);
+$('.password').hide();
 $('#teacher_image').on('change',function(){
     var reader = new FileReader();
 
